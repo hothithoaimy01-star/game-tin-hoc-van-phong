@@ -1299,10 +1299,16 @@ class CyberGame {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 48, 48);
-    const dummy = new TechUnit(unitKey, 0, 0, { startX: 0, startY: 0, cellW: 48, cellH: 48 }, this.upgrades);
-    dummy.x = 24; dummy.y = 24;
-    dummy.draw(ctx);
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.save();
+    ctx.translate(w / 2, h / 2 + 1);
+    ctx.scale(0.85, 0.85);
+    const dummy = new TechUnit(unitKey, 0, 0, { startX: 0, startY: 0, cellW: w, cellH: h }, this.upgrades);
+    dummy.animTime = 0;
+    dummy.drawPlantSprite(ctx);
+    ctx.restore();
   }
 
   // ==========================================================================
@@ -1420,10 +1426,16 @@ class CyberGame {
     const canvas = document.getElementById(`icon-${unitKey}`);
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, 48, 48);
-    const dummy = new TechUnit(unitKey, 0, 0, { startX: 0, startY: 0, cellW: 48, cellH: 48 }, this.upgrades);
-    dummy.x = 24; dummy.y = 24;
-    dummy.draw(ctx);
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.save();
+    ctx.translate(w / 2, h / 2 + 1);
+    ctx.scale(0.85, 0.85);
+    const dummy = new TechUnit(unitKey, 0, 0, { startX: 0, startY: 0, cellW: w, cellH: h }, this.upgrades);
+    dummy.animTime = 0;
+    dummy.drawPlantSprite(ctx);
+    ctx.restore();
   }
 
   selectUnitCard(unitKey) {

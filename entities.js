@@ -1158,6 +1158,147 @@ class TechUnit {
         drawKawaiiEyes(ctx, cx, -2, 3.5, 2.5, isBlink);
         drawKawaiiBlush(ctx, cx, 2, 5.5, 2.5);
       });
+      // Stems
+      ctx.strokeStyle = '#22c55e';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(-9, -12); ctx.quadraticCurveTo(0, -22, 0, -26);
+      ctx.moveTo(9, -12); ctx.quadraticCurveTo(0, -22, 0, -26);
+      ctx.stroke();
+
+    } else if (this.type === 'RAILGUN_CANNON') {
+      // Bunny Dual Cannon
+      // Long Bunny Ears
+      ctx.fillStyle = '#fb923c';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.8;
+      [-8, 8].forEach(ex => {
+        ctx.beginPath();
+        ctx.ellipse(ex, -18, 4.5, 12, (ex < 0 ? -0.15 : 0.15), 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#fed7aa';
+        ctx.beginPath();
+        ctx.ellipse(ex, -18, 2.5, 8, (ex < 0 ? -0.15 : 0.15), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#fb923c';
+      });
+
+      // Bunny Head
+      ctx.beginPath();
+      ctx.arc(0, 0, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      
+      // Dual Candy Blasters on sides
+      [-16, 16].forEach(bx => {
+        ctx.fillStyle = '#f97316';
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.roundRect(bx - 3, -6, 6, 12, 3); ctx.fill(); ctx.stroke();
+      });
+
+      drawKawaiiEyes(ctx, 0, -1, 5, 3.2, isBlink);
+      drawKawaiiBlush(ctx, 0, 4, 8, 3.2);
+      drawKawaiiMouth(ctx, 0, 5, 'cat');
+
+    } else if (this.type === 'TESLA_COIL') {
+      // Sparkle Kitsune Fox
+      ctx.fillStyle = '#c084fc';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.8;
+      // Fox Ears
+      [-10, 10].forEach(fx => {
+        ctx.beginPath();
+        ctx.moveTo(fx, -6);
+        ctx.lineTo(fx < 0 ? -16 : 16, -22);
+        ctx.lineTo(0, -12);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+      });
+
+      // Head
+      ctx.beginPath();
+      ctx.roundRect(-16, -12, 32, 28, 12); ctx.fill(); ctx.stroke();
+      
+      // Electric Sparkle on Forehead
+      ctx.fillStyle = '#facc15';
+      ctx.font = '12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚡', 0, -12);
+
+      drawKawaiiEyes(ctx, 0, -1, 5.5, 3.2, isBlink);
+      drawKawaiiBlush(ctx, 0, 4, 8, 3);
+      drawKawaiiMouth(ctx, 0, 5, 'cat');
+
+    } else if (this.type === 'SCATTER_SHOTGUN') {
+      // Corn Tri-Scatter
+      ctx.fillStyle = '#facc15';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(-14, -18, 28, 36, 14); ctx.fill(); ctx.stroke();
+
+      // Green Husk Leaves on base
+      ctx.fillStyle = '#4ade80';
+      ctx.beginPath();
+      ctx.moveTo(-16, 14); ctx.lineTo(-20, 2); ctx.lineTo(-10, 16); ctx.fill();
+      ctx.moveTo(16, 14); ctx.lineTo(20, 2); ctx.lineTo(10, 16); ctx.fill();
+
+      // Corn Kernels Texture
+      ctx.fillStyle = '#eab308';
+      [-6, 0, 6].forEach(kx => {
+        [-8, 0, 8].forEach(ky => {
+          ctx.beginPath();
+          ctx.arc(kx, ky, 2, 0, Math.PI * 2); ctx.fill();
+        });
+      });
+
+      drawKawaiiEyes(ctx, 0, -4, 5, 3, isBlink);
+      drawKawaiiBlush(ctx, 0, 2, 8, 3);
+      drawKawaiiMouth(ctx, 0, 3, 'smile');
+
+    } else if (this.type === 'SNIPER_TURRET') {
+      // Bamboo Heart Sniper
+      ctx.fillStyle = '#16a34a';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(-12, -22, 24, 44, 10); ctx.fill(); ctx.stroke();
+
+      // Bamboo Segments
+      ctx.strokeStyle = '#15803d';
+      ctx.lineWidth = 2.5;
+      [-6, 8].forEach(sy => {
+        ctx.beginPath(); ctx.moveTo(-12, sy); ctx.lineTo(12, sy); ctx.stroke();
+      });
+
+      // Target Heart Scope on top
+      ctx.fillStyle = '#f43f5e';
+      ctx.font = '14px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🎯', 0, -22);
+
+      drawKawaiiEyes(ctx, 0, 0, 4.5, 3, isBlink);
+      drawKawaiiBlush(ctx, 0, 5, 7, 2.5);
+
+    } else if (this.type === 'DRONE_HIVE') {
+      // Honeybee Hive
+      ctx.fillStyle = '#f59e0b';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, 17, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Mini Bee flying near head
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.arc(14, -14, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#38bdf8';
+      ctx.beginPath();
+      ctx.ellipse(14, -19, 3, 2, 0, 0, Math.PI * 2); ctx.fill();
+
+      drawKawaiiEyes(ctx, 0, -2, 5, 3.2, isBlink);
+      drawKawaiiBlush(ctx, 0, 4, 8, 3.2);
+      drawKawaiiMouth(ctx, 0, 5, 'smile');
 
     } else {
       // Generic Cute Plant Fallback with Unique Color Accent
@@ -1487,6 +1628,173 @@ class VirusEnemy {
       ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       drawKawaiiEyes(ctx, 0, -2, 5, 3.2, false);
       drawKawaiiBlush(ctx, 0, 2, 8, 3.2);
+
+    } else if (this.type === 'ENCRYPTED_WORM') {
+      // Jelly Rainbow Worm
+      const segColors = ['#fbbf24', '#f43f5e', '#38bdf8', '#4ade80'];
+      for (let s = 2; s >= 0; s--) {
+        ctx.fillStyle = segColors[s % segColors.length];
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.arc(s * 10 - 10, Math.sin(this.animTime * 8 + s) * 3, 10 - s * 1.5, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+      }
+      // Head
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath(); ctx.arc(-10, 0, 12, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      drawKawaiiEyes(ctx, -10, -2, 4, 2.5, false);
+      drawKawaiiBlush(ctx, -10, 2, 6, 2.5);
+
+    } else if (this.type === 'RANSOMWARE_BRUTE') {
+      // Big Purple Bear Slime
+      ctx.fillStyle = '#a855f7';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2.5;
+      // Bear Ears
+      [-14, 14].forEach(bx => {
+        ctx.beginPath(); ctx.arc(bx, -18, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      });
+      // Big Body
+      ctx.beginPath(); ctx.arc(0, 0, 22, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Giant Golden Heart Lock
+      ctx.fillStyle = '#fbbf24';
+      ctx.strokeStyle = '#d97706'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.roundRect(-8, 2, 16, 14, 4); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, 2, 5, Math.PI, 0); ctx.stroke();
+
+      drawKawaiiEyes(ctx, 0, -6, 6, 3.8, false);
+      drawKawaiiBlush(ctx, 0, 0, 10, 3.8);
+
+    } else if (this.type === 'GLITCH_SPRINTER') {
+      // Speed Bunny Slime ⚡
+      ctx.fillStyle = '#38bdf8';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      // Rabbit Ears
+      [-6, 6].forEach(ex => {
+        ctx.beginPath(); ctx.ellipse(ex, -18, 4, 10, (ex < 0 ? -0.15 : 0.15), 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      });
+      // Body
+      ctx.beginPath(); ctx.arc(0, 0, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Surfboard beneath
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath(); ctx.roundRect(-18, 12, 36, 6, 3); ctx.fill(); ctx.stroke();
+
+      drawKawaiiEyes(ctx, -2, -2, 4.5, 3, false);
+      drawKawaiiBlush(ctx, -2, 3, 7, 2.8);
+
+    } else if (this.type === 'STEALTH_SPYWARE') {
+      // Ghost Slime
+      ctx.fillStyle = 'rgba(192, 132, 252, 0.85)';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.arc(0, -4, 15, Math.PI, 0);
+      ctx.lineTo(15, 14);
+      ctx.lineTo(8, 9);
+      ctx.lineTo(0, 14);
+      ctx.lineTo(-8, 9);
+      ctx.lineTo(-15, 14);
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+      drawKawaiiBow(ctx, 10, -14, 5, '#f472b6');
+      drawKawaiiEyes(ctx, 0, -4, 5, 3, false);
+
+    } else if (this.type === 'CYBER_ZOMBIE_MECH') {
+      // Exploder Propeller Mech 💣
+      ctx.fillStyle = '#fb923c';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.roundRect(-15, -12, 30, 26, 8); ctx.fill(); ctx.stroke();
+      // Spinning Propeller
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath();
+      ctx.ellipse(0, -18, 14, 4, this.animTime * 12, 0, Math.PI * 2); ctx.fill();
+      drawKawaiiEyes(ctx, 0, -2, 5, 3, false);
+      drawKawaiiBlush(ctx, 0, 3, 8, 2.5);
+
+    } else if (this.type === 'LOGIC_BOMB_GOLEM') {
+      // Molten Bomb Rock Golem
+      ctx.fillStyle = '#ef4444';
+      ctx.strokeStyle = '#facc15'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.roundRect(-18, -16, 36, 32, 10); ctx.fill(); ctx.stroke();
+      // Glowing Molten Cracks
+      ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-10, -8); ctx.lineTo(-2, 4); ctx.lineTo(10, -4); ctx.stroke();
+      drawKawaiiEyes(ctx, 0, -4, 6, 3.5, false);
+
+    } else if (this.type === 'SHADOW_STALKER') {
+      // Midnight Black Cat Slime
+      ctx.fillStyle = '#1e1b4b';
+      ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 2;
+      drawKawaiiCatEars(ctx, 0, -8, 7, '#1e1b4b', '#c084fc');
+      ctx.beginPath(); ctx.arc(0, 2, 15, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Golden Bell
+      ctx.fillStyle = '#facc15';
+      ctx.beginPath(); ctx.arc(0, 14, 4, 0, Math.PI * 2); ctx.fill();
+      drawKawaiiEyes(ctx, 0, 0, 5, 3, false);
+      drawKawaiiBlush(ctx, 0, 4, 7, 2.5);
+
+    } else if (this.type === 'DISCO_SLIME') {
+      // Disco Ball Slime with Sunglasses 😎
+      ctx.fillStyle = '#ec4899';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      // Star Sunglasses
+      ctx.fillStyle = '#1e1b4b';
+      [-5, 5].forEach(sx => {
+        ctx.beginPath(); ctx.arc(sx, -3, 4.5, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.strokeStyle = '#facc15'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(-9, -3); ctx.lineTo(9, -3); ctx.stroke();
+      drawKawaiiBlush(ctx, 0, 4, 8, 3);
+
+    } else if (this.type === 'FROST_YETI_SLIME') {
+      // Ice Snowman Yeti
+      ctx.fillStyle = '#93c5fd';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      // Earmuffs
+      ctx.fillStyle = '#f43f5e';
+      [-16, 16].forEach(ex => {
+        ctx.beginPath(); ctx.arc(ex, -4, 5, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.strokeStyle = '#f43f5e'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, -10, 16, Math.PI, 0); ctx.stroke();
+      // Head
+      ctx.fillStyle = '#e0f2fe';
+      ctx.beginPath(); ctx.arc(0, 0, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      drawKawaiiEyes(ctx, 0, -2, 5, 3, false);
+      drawKawaiiBlush(ctx, 0, 3, 8, 3);
+
+    } else if (this.type === 'HYDRA_TROJAN') {
+      // 3-Headed Chibi Dragon
+      [-12, 0, 12].forEach((hx, i) => {
+        ctx.fillStyle = i === 1 ? '#f43f5e' : '#fb7185';
+        ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.arc(hx, i === 1 ? -4 : 4, 9, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        drawKawaiiEyes(ctx, hx, i === 1 ? -6 : 2, 3, 2, false);
+      });
+
+    } else if (this.type === 'BIO_SYNTH_VIRUS') {
+      // Glowing Vampire Jellyfish
+      ctx.fillStyle = '#a3e635';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, -4, 16, Math.PI, 0); ctx.fill(); ctx.stroke();
+      // Jelly Tentacles
+      ctx.strokeStyle = '#84cc16'; ctx.lineWidth = 2;
+      [-8, 0, 8].forEach(tx => {
+        ctx.beginPath();
+        ctx.moveTo(tx, -4);
+        ctx.quadraticCurveTo(tx + Math.sin(this.animTime * 6 + tx) * 4, 8, tx, 16);
+        ctx.stroke();
+      });
+      drawKawaiiEyes(ctx, 0, -6, 5, 3, false);
+      drawKawaiiBlush(ctx, 0, -1, 8, 2.5);
+
+    } else if (this.type === 'BOTNET_COMMANDER') {
+      // Giant Octopus Prince (Boss W2)
+      ctx.fillStyle = '#c084fc';
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(0, 0, 32, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      drawKawaiiStarCrown(ctx, 0, -30, 12);
+      drawKawaiiEyes(ctx, 0, -4, 10, 5.5, false);
+      drawKawaiiBlush(ctx, 0, 5, 16, 5.5);
 
     } else if (this.type === 'BALLOON_SLIME') {
       // Balloon on top 🎈
