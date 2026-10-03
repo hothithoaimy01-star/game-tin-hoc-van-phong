@@ -3,47 +3,48 @@
  * 40 Missions, 40 Unlockable Cute Plants, 25 Diverse Slime Monsters, Seed Selection Screen
  */
 
-// 40 Levels Unlock Rewards
+// 40 Levels Unlock Rewards (1 new plant rewarded per level completed!)
 const LEVEL_UNLOCK_REWARDS = {
-  1: 'LASER_TURRET',
-  2: 'NANO_SHIELD',
-  3: 'CRYO_TURRET',
-  4: 'EMP_BOMB',
-  5: 'RAILGUN_CANNON',
-  6: 'TESLA_COIL',
-  7: 'SCATTER_SHOTGUN',
-  8: 'SNIPER_TURRET',
-  9: 'NANO_HEALER',
-  10: 'DRONE_HIVE',
+  1: 'NANO_SHIELD',            // Thắng Màn 1 -> Nhận Bé Khoai Tây Giáp Dẻo
+  2: 'CRYO_TURRET',            // Thắng Màn 2 -> Nhận Bé Cánh Cụt Băng Tuyết
+  3: 'EMP_BOMB',               // Thắng Màn 3 -> Nhận Bé Cherry Trái Tim Nổ
+  4: 'DURIAN_SHREDDER',        // Thắng Màn 4 -> Nhận Bé Sầu Riêng Gai Nổ
+  5: 'RAILGUN_CANNON',         // Thắng Màn 5 -> Nhận Bé Thỏ Pháo Kép
+  6: 'GATLING_PEA_CAT',        // Thắng Màn 6 -> Nhận Bé Mèo Gatling 4 Nòng
+  7: 'TESLA_COIL',             // Thắng Màn 7 -> Nhận Bé Cáo Sấm Sét
+  8: 'SCATTER_SHOTGUN',        // Thắng Màn 8 -> Nhận Bé Bắp Ngô Bắn 3 Làn
+  9: 'SNIPER_TURRET',          // Thắng Màn 9 -> Nhận Bé Măng Tre Bắn Tỉa để đánh Boss Màn 10
+  10: 'DRONE_HIVE',            // Thắng Màn 10 -> Nhận Bé Tổ Ong Mật sang Thế Giới 2
   11: 'FLAMETHROWER_TURRET',
-  12: 'PLASMA_MORTAR',
-  13: 'FORCE_REPELLER',
-  14: 'MISSILE_SILO',
-  15: 'BLACK_HOLE',
-  16: 'CACTUS_SPIKE',
-  17: 'COCONUT_BOWLING',
-  18: 'TIME_WARP_PYLON',
-  19: 'MAGNET_SHROOM',
-  20: 'ORBITAL_STRIKE_BEACON',
-  21: 'POISON_ONION',
-  22: 'GARLIC_DIVERT',
-  23: 'SHROOM_PUFF',
-  24: 'LOTUS_REFLECTOR',
-  25: 'PUMPKIN_SHELL',
-  26: 'GRAPE_CLUSTER',
-  27: 'AVOCADO_RAM',
-  28: 'MANGO_BOOMERANG',
-  29: 'LEMON_VOLT',
-  30: 'PINEAPPLE_TANK',
-  31: 'BANANA_LAUNCHER',
-  32: 'BLUEBERRY_FROST',
-  33: 'KIWI_SPIKETRAP',
-  34: 'PALM_ENERGY',
-  35: 'PEACH_REVIVE',
-  36: 'GRAVITY_APPLE',
-  37: 'RAINBOW_FUNGUS',
-  38: 'MYSTIC_DRAGON_PLANT',
-  39: 'TREE_OF_WISDOM'
+  12: 'NANO_HEALER',
+  13: 'PLASMA_MORTAR',
+  14: 'FORCE_REPELLER',
+  15: 'MISSILE_SILO',
+  16: 'BLACK_HOLE',
+  17: 'CACTUS_SPIKE',
+  18: 'COCONUT_BOWLING',
+  19: 'TIME_WARP_PYLON',
+  20: 'MAGNET_SHROOM',
+  21: 'ORBITAL_STRIKE_BEACON',
+  22: 'POISON_ONION',
+  23: 'GARLIC_DIVERT',
+  24: 'SHROOM_PUFF',
+  25: 'LOTUS_REFLECTOR',
+  26: 'PUMPKIN_SHELL',
+  27: 'GRAPE_CLUSTER',
+  28: 'AVOCADO_RAM',
+  29: 'MANGO_BOOMERANG',
+  30: 'LEMON_VOLT',
+  31: 'PINEAPPLE_TANK',
+  32: 'BANANA_LAUNCHER',
+  33: 'BLUEBERRY_FROST',
+  34: 'KIWI_SPIKETRAP',
+  35: 'PALM_ENERGY',
+  36: 'PEACH_REVIVE',
+  37: 'GRAVITY_APPLE',
+  38: 'RAINBOW_FUNGUS',
+  39: 'MYSTIC_DRAGON_PLANT',
+  40: 'TREE_OF_WISDOM'
 };
 
 // ============================================================================
@@ -53,9 +54,10 @@ function generateLevelConfigs() {
   const levels = {};
 
   // WORLD 1: THẢO NGUYÊN NẮNG ẤM (Levels 1 to 10)
+  // Escalating difficulty: introducing 1 new monster type & 1 new tactical challenge each level
   for (let i = 1; i <= 10; i++) {
     const isBoss = (i === 10);
-    const wavesCount = i <= 3 ? 3 : i <= 7 ? 4 : 5;
+    const wavesCount = i === 1 ? 2 : i <= 4 ? 3 : i <= 8 ? 4 : 5;
     const waves = [];
 
     for (let w = 0; w < wavesCount; w++) {
@@ -63,35 +65,77 @@ function generateLevelConfigs() {
       const enemyGroups = [];
 
       if (isBoss && isFinalWave) {
-        enemyGroups.push({ type: 'DDOS_OVERLORD', count: 2, interval: 4.0 });
-        enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 4, interval: 3.0 });
-        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 5, interval: 2.0 });
+        enemyGroups.push({ type: 'DDOS_OVERLORD', count: 1, interval: 6.0 });
+        enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 3, interval: 3.5 });
+        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 4, interval: 2.2 });
+        enemyGroups.push({ type: 'CYBER_ZOMBIE_MECH', count: 3, interval: 3.0 });
         enemyGroups.push({ type: 'DISCO_SLIME', count: 2, interval: 4.5 });
-        enemyGroups.push({ type: 'BIO_SYNTH_VIRUS', count: 3, interval: 3.5 });
-      } else {
-        const trojanCount = 3 + i + w * 2;
-        enemyGroups.push({ type: 'TROJAN_BUG', count: trojanCount, interval: Math.max(1.2, 3.2 - i * 0.15) });
-
-        if (i >= 2) enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 1 + Math.floor(i / 2) + w, interval: 3.5 });
-        if (i >= 3) enemyGroups.push({ type: 'BALLOON_SLIME', count: 1 + Math.floor(i / 3), interval: 4.0 });
-        if (i >= 4) enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 1 + Math.floor(i / 3), interval: 4.0 });
-        if (i >= 5) enemyGroups.push({ type: 'DIGGER_MOLE', count: 1 + Math.floor(i / 4), interval: 5.0 });
-        if (i >= 6) enemyGroups.push({ type: 'STEALTH_SPYWARE', count: 2 + Math.floor(i / 4), interval: 3.0 });
-        if (i >= 7) enemyGroups.push({ type: 'BIO_SYNTH_VIRUS', count: 1 + Math.floor(i / 4), interval: 4.0 });
-        if (i >= 8) enemyGroups.push({ type: 'DISCO_SLIME', count: 1 + Math.floor(i / 5), interval: 5.5 });
-        if (i >= 9) enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 1 + Math.floor(i / 5), interval: 5.0 });
+      } else if (i === 1) {
+        // Level 1: Gentle introduction (Trojan bugs only)
+        const count = w === 0 ? 4 : 7;
+        enemyGroups.push({ type: 'TROJAN_BUG', count: count, interval: 2.5 });
+      } else if (i === 2) {
+        // Level 2: Introduces Encrypted Worm (player has Wallnut)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 4 + w * 2, interval: 2.2 });
+        enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 1 + w, interval: 4.0 });
+      } else if (i === 3) {
+        // Level 3: Introduces Balloon Slime (player has Cryo Turret)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 4 + w, interval: 2.0 });
+        enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 1 + w, interval: 3.5 });
+        if (w >= 1) enemyGroups.push({ type: 'BALLOON_SLIME', count: 1 + w, interval: 4.0 });
+      } else if (i === 4) {
+        // Level 4: Introduces Glitch Sprinter ⚡ (player has Cherry Heart Bomb)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 4 + w * 2, interval: 1.8 });
+        enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 2 + w, interval: 3.0 });
+        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 1 + w, interval: 3.5 });
+      } else if (i === 5) {
+        // Level 5: Introduces Digger Mole & Ransomware Brute (player has Durian Shredder)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 4 + w, interval: 1.8 });
+        enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 2 + w, interval: 3.0 });
+        enemyGroups.push({ type: 'DIGGER_MOLE', count: 1 + Math.floor(w / 2), interval: 4.5 });
+        if (w >= 2) enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 1, interval: 5.0 });
+      } else if (i === 6) {
+        // Level 6: Introduces Stealth Spyware (player has Bunny Dual Cannon)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 4 + w, interval: 1.8 });
+        enemyGroups.push({ type: 'STEALTH_SPYWARE', count: 2 + w, interval: 2.8 });
+        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 1 + Math.floor(w / 2), interval: 3.5 });
+        enemyGroups.push({ type: 'BALLOON_SLIME', count: 1 + Math.floor(w / 2), interval: 4.0 });
+      } else if (i === 7) {
+        // Level 7: Introduces Exploder Mech 💣 & Vampire Jellyfish (player has Gatling Neko Pea)
+        enemyGroups.push({ type: 'ENCRYPTED_WORM', count: 3 + w, interval: 2.2 });
+        enemyGroups.push({ type: 'CYBER_ZOMBIE_MECH', count: 1 + Math.floor(w / 2), interval: 3.8 });
+        enemyGroups.push({ type: 'BIO_SYNTH_VIRUS', count: 1 + Math.floor(w / 2), interval: 4.0 });
+        if (w >= 2) enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 1 + Math.floor(w / 3), interval: 5.0 });
+      } else if (i === 8) {
+        // Level 8: Introduces Disco Slime (player has Sparkle Kitsune)
+        enemyGroups.push({ type: 'TROJAN_BUG', count: 5 + w * 2, interval: 1.5 });
+        enemyGroups.push({ type: 'DISCO_SLIME', count: 1 + Math.floor(w / 2), interval: 5.0 });
+        enemyGroups.push({ type: 'CYBER_ZOMBIE_MECH', count: 1 + Math.floor(w / 2), interval: 3.5 });
+        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 2, interval: 3.0 });
+      } else if (i === 9) {
+        // Level 9: Introduces Hydra 3-Head Splitter (player has Corn Tri-Scatter)
+        enemyGroups.push({ type: 'HYDRA_TROJAN', count: 1 + Math.floor(w / 2), interval: 4.0 });
+        enemyGroups.push({ type: 'RANSOMWARE_BRUTE', count: 1 + Math.floor(w / 2), interval: 4.5 });
+        enemyGroups.push({ type: 'DIGGER_MOLE', count: 1 + Math.floor(w / 2), interval: 4.0 });
+        enemyGroups.push({ type: 'CYBER_ZOMBIE_MECH', count: 2, interval: 3.5 });
+      } else if (i === 10) {
+        // Level 10 Pre-boss waves (player has Bamboo Sniper)
+        enemyGroups.push({ type: 'HYDRA_TROJAN', count: 2 + w, interval: 3.5 });
+        enemyGroups.push({ type: 'GLITCH_SPRINTER', count: 2 + w, interval: 2.5 });
+        enemyGroups.push({ type: 'CYBER_ZOMBIE_MECH', count: 2 + w, interval: 3.0 });
+        enemyGroups.push({ type: 'BIO_SYNTH_VIRUS', count: 2, interval: 3.5 });
       }
 
-      waves.push({ delay: w === 0 ? 10 : 8, enemies: enemyGroups });
+      waves.push({ delay: w === 0 ? 8 : 7, enemies: enemyGroups });
     }
 
     levels[i] = {
       world: 'day',
       worldName: 'THẾ GIỚI 1: THẢO NGUYÊN NẮNG ẤM 🌻',
       title: isBoss ? 'MÀN 10 (TRÙM ĐẠI ĐẾ SLIME): GIẢI CỨU VƯỜN HOA' : `MÀN ${i < 10 ? '0' + i : i}: BẢO VỆ ĐỒNG CỎ XANH`,
-      initialEnergy: 350 + i * 25,
+      initialEnergy: 150 + i * 25,
       hasSkyEnergy: true,
-      skyEnergyInterval: 6.5,
+      skyEnergyInterval: 7.0,
       waves: waves,
       isBoss: isBoss
     };
@@ -339,8 +383,18 @@ class CyberGame {
     });
   }
 
+  getUnlockedUnitsList(unlockedLevel) {
+    const list = ['ENERGY_CORE', 'LASER_TURRET'];
+    for (let lvl = 1; lvl < unlockedLevel; lvl++) {
+      const reward = LEVEL_UNLOCK_REWARDS[lvl];
+      if (reward && !list.includes(reward)) {
+        list.push(reward);
+      }
+    }
+    return list;
+  }
+
   loadActiveAccount() {
-    const starterUnits = ['ENERGY_CORE', 'LASER_TURRET', 'GATLING_PEA_CAT', 'DURIAN_SHREDDER', 'NANO_SHIELD', 'CRYO_TURRET', 'EMP_BOMB'];
     const activeEmail = localStorage.getItem('cyber_active_email') || '';
     if (activeEmail) {
       const profileStr = localStorage.getItem('cyber_profile_' + activeEmail.trim().toLowerCase());
@@ -355,16 +409,17 @@ class CyberGame {
           this.selectedAvatar = this.currentAccount.avatar;
           this.chips = typeof p.chips === 'number' ? p.chips : 150;
           this.upgrades = p.upgrades || {};
-          this.unlockedLevel = p.unlockedLevel || 1;
+          this.unlockedLevel = typeof p.unlockedLevel === 'number' ? Math.max(1, p.unlockedLevel) : 1;
           this.hasNightKey = !!p.hasNightKey;
           this.hasCloudKey = !!p.hasCloudKey;
           
-          let uUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : starterUnits;
-          starterUnits.forEach(u => { if (!uUnits.includes(u)) uUnits.push(u); });
-          this.unlockedUnits = uUnits;
+          const legitimateUnlocked = this.getUnlockedUnitsList(this.unlockedLevel);
+          this.unlockedUnits = legitimateUnlocked;
 
-          let sDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : starterUnits.slice(0, 6);
-          starterUnits.slice(0, 6).forEach(u => { if (!sDeck.includes(u) && sDeck.length < 6) sDeck.push(u); });
+          let sDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck.filter(u => legitimateUnlocked.includes(u)) : [];
+          if (sDeck.length === 0) {
+            sDeck = legitimateUnlocked.slice(0, 8);
+          }
           this.selectedDeck = sDeck;
           return;
         } catch (e) {
@@ -380,12 +435,14 @@ class CyberGame {
     this.hasNightKey = localStorage.getItem('cyber_night_key') === 'true';
     this.hasCloudKey = localStorage.getItem('cyber_cloud_key') === 'true';
     
-    let uUnits = JSON.parse(localStorage.getItem('cyber_unlocked_units') || JSON.stringify(starterUnits));
-    starterUnits.forEach(u => { if (!uUnits.includes(u)) uUnits.push(u); });
-    this.unlockedUnits = uUnits;
+    const legitimateUnlocked = this.getUnlockedUnitsList(this.unlockedLevel);
+    this.unlockedUnits = legitimateUnlocked;
 
-    let sDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || JSON.stringify(starterUnits.slice(0, 6)));
-    starterUnits.slice(0, 6).forEach(u => { if (!sDeck.includes(u) && sDeck.length < 6) sDeck.push(u); });
+    let savedDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || '[]');
+    let sDeck = Array.isArray(savedDeck) ? savedDeck.filter(u => legitimateUnlocked.includes(u)) : [];
+    if (sDeck.length === 0) {
+      sDeck = legitimateUnlocked.slice(0, 8);
+    }
     this.selectedDeck = sDeck;
 
     this.currentAccount = {

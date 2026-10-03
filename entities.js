@@ -101,6 +101,45 @@ function drawKawaiiMouth(ctx, x, y, type = 'smile', color = '#241432') {
   ctx.restore();
 }
 
+function drawKawaiiCatEars(ctx, x, y, size = 8, color = '#15803d', innerColor = '#4ade80') {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1.5;
+  // Left Ear
+  ctx.beginPath();
+  ctx.moveTo(x - 12, y + 6);
+  ctx.lineTo(x - 10, y - size);
+  ctx.lineTo(x - 2, y + 2);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // Left Inner
+  ctx.fillStyle = innerColor;
+  ctx.beginPath();
+  ctx.moveTo(x - 10, y + 4);
+  ctx.lineTo(x - 9, y - size + 3);
+  ctx.lineTo(x - 4, y + 2);
+  ctx.closePath();
+  ctx.fill();
+  // Right Ear
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x + 12, y + 6);
+  ctx.lineTo(x + 10, y - size);
+  ctx.lineTo(x + 2, y + 2);
+  ctx.closePath();
+  ctx.fill(); ctx.stroke();
+  // Right Inner
+  ctx.fillStyle = innerColor;
+  ctx.beginPath();
+  ctx.moveTo(x + 10, y + 4);
+  ctx.lineTo(x + 9, y - size + 3);
+  ctx.lineTo(x + 4, y + 2);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 function drawKawaiiBow(ctx, x, y, size = 6, color = '#ff70a6') {
   ctx.save();
   ctx.fillStyle = color;
@@ -150,21 +189,9 @@ const UNIT_TYPES = {
   },
   LASER_TURRET: {
     id: 'LASER_TURRET', name: 'Neko Pea Bot', vietName: 'Bé Mèo Đậu Thần',
-    cost: 100, cooldown: 5, hp: 350, unlockLevel: 1,
+    cost: 100, cooldown: 5, hp: 350, unlockLevel: 0,
     role: 'Bắn Đậu Plasma (45 DMG)', desc: 'Bé Mèo đeo nơ hồng bắn tia kẹo sao năng lượng thẳng hàng!',
     color: '#38bdf8', accent: '#ff70a6'
-  },
-  GATLING_PEA_CAT: {
-    id: 'GATLING_PEA_CAT', name: 'Gatling Neko Pea', vietName: 'Bé Mèo Gatling 4 Nòng',
-    cost: 175, cooldown: 7, hp: 400, unlockLevel: 0,
-    role: 'Bắn 4 Viên Đạn Siêu Tốc (160 DMG)', desc: 'Bé Mèo đội mũ phi công bắn liền 4 viên đạn plasma xé tan mọi quái trâu máu!',
-    color: '#22c55e', accent: '#fbbf24'
-  },
-  DURIAN_SHREDDER: {
-    id: 'DURIAN_SHREDDER', name: 'Durian Armor Shredder', vietName: 'Bé Sầu Riêng Gai Nổ',
-    cost: 75, cooldown: 10, hp: 4500, unlockLevel: 0,
-    role: 'Khiên Gai 4500 HP (45 DMG/s)', desc: 'Lớp gai sầu riêng sắc nhọn vừa chắn đường vừa xé toạc lớp giáp của quái trâu!',
-    color: '#a3e635', accent: '#65a30d'
   },
   NANO_SHIELD: {
     id: 'NANO_SHIELD', name: 'Jelly Wallnut', vietName: 'Bé Khoai Tây Giáp Dẻo',
@@ -184,41 +211,53 @@ const UNIT_TYPES = {
     role: 'Nổ Trái Tim 3x3 (2200 DMG)', desc: 'Bé Cherry má hồng tròn vo phát nổ thành ngàn trái tim 💖!',
     color: '#ff5d8f', accent: '#ff85a2'
   },
+  DURIAN_SHREDDER: {
+    id: 'DURIAN_SHREDDER', name: 'Durian Armor Shredder', vietName: 'Bé Sầu Riêng Gai Nổ',
+    cost: 75, cooldown: 10, hp: 4500, unlockLevel: 5,
+    role: 'Khiên Gai 4500 HP (45 DMG/s)', desc: 'Lớp gai sầu riêng sắc nhọn vừa chắn đường vừa xé toạc lớp giáp của quái trâu!',
+    color: '#a3e635', accent: '#65a30d'
+  },
   RAILGUN_CANNON: {
     id: 'RAILGUN_CANNON', name: 'Bunny Dual Cannon', vietName: 'Bé Thỏ Pháo Kép Cuti',
-    cost: 175, cooldown: 7, hp: 400, unlockLevel: 5,
+    cost: 175, cooldown: 7, hp: 400, unlockLevel: 6,
     role: 'Bắn x2 Kẹo Mút (90 DMG)', desc: 'Bé Thỏ đeo kính phi công bắn liền 2 phát kẹo mút uy lực!',
     color: '#fb923c', accent: '#f97316'
   },
+  GATLING_PEA_CAT: {
+    id: 'GATLING_PEA_CAT', name: 'Gatling Neko Pea', vietName: 'Bé Mèo Gatling 4 Nòng',
+    cost: 175, cooldown: 7, hp: 400, unlockLevel: 7,
+    role: 'Bắn 4 Viên Đạn Siêu Tốc (160 DMG)', desc: 'Bé Mèo đội mũ phi công bắn liền 4 viên đạn plasma xé tan mọi quái trâu máu!',
+    color: '#22c55e', accent: '#fbbf24'
+  },
   TESLA_COIL: {
     id: 'TESLA_COIL', name: 'Sparkle Kitsune', vietName: 'Bé Cáo Hồ Ly Sấm Sét',
-    cost: 125, cooldown: 10, hp: 400, unlockLevel: 6,
+    cost: 125, cooldown: 10, hp: 400, unlockLevel: 8,
     role: 'Giật Sét Cầu Vồng', desc: 'Phát sóng điện dạ quang giật liên tục vào đàn quái slime!',
     color: '#c084fc', accent: '#38bdf8'
   },
   SCATTER_SHOTGUN: {
     id: 'SCATTER_SHOTGUN', name: 'Corn Tri-Scatter', vietName: 'Bé Bắp Ngô Bắn 3 Làn',
-    cost: 150, cooldown: 8, hp: 320, unlockLevel: 7,
+    cost: 150, cooldown: 8, hp: 320, unlockLevel: 9,
     role: 'Bắn Tỏa 3 Làn', desc: 'Bắn chùm hạt bắp kẹo tỏa góc nhọn sang cả làn trên và dưới!',
     color: '#facc15', accent: '#ea580c'
   },
   SNIPER_TURRET: {
     id: 'SNIPER_TURRET', name: 'Bamboo Heart Sniper', vietName: 'Bé Măng Tre Bắn Tỉa Xuyên',
-    cost: 175, cooldown: 10, hp: 300, unlockLevel: 8,
+    cost: 175, cooldown: 10, hp: 300, unlockLevel: 10,
     role: 'Xuyên Thấu Cả Hàng (90 DMG)', desc: 'Bắn mũi tên tre tình yêu xuyên qua mọi quái vật trên làn!',
     color: '#f43f5e', accent: '#ffffff'
   },
-  NANO_HEALER: {
-    id: 'NANO_HEALER', name: 'Sakura Fairy', vietName: 'Bé Hoa Anh Đào Hồi Máu',
-    cost: 75, cooldown: 12, hp: 350, unlockLevel: 9,
-    role: 'Hồi 150 HP Xung Quanh', desc: 'Vỗ cánh hoa anh đào phóng sóng tim 💖 hồi phục máu cho đồng đội!',
-    color: '#34d399', accent: '#059669'
-  },
   DRONE_HIVE: {
     id: 'DRONE_HIVE', name: 'Honeybee Swarm', vietName: 'Bé Tổ Ong Mật Mini-Bee',
-    cost: 225, cooldown: 12, hp: 350, unlockLevel: 10,
+    cost: 225, cooldown: 12, hp: 350, unlockLevel: 11,
     role: '2 Bé Ong Bay Tự Động', desc: 'Thả 2 bé Ong Vàng má hồng bay tuần tra bắn tỉa tự động!',
     color: '#a3e635', accent: '#38bdf8'
+  },
+  NANO_HEALER: {
+    id: 'NANO_HEALER', name: 'Sakura Fairy', vietName: 'Bé Hoa Anh Đào Hồi Máu',
+    cost: 75, cooldown: 12, hp: 350, unlockLevel: 12,
+    role: 'Hồi 150 HP Xung Quanh', desc: 'Vỗ cánh hoa anh đào phóng sóng tim 💖 hồi phục máu cho đồng đội!',
+    color: '#34d399', accent: '#059669'
   },
 
   // World 2: 11 - 20
@@ -1020,49 +1059,52 @@ class TechUnit {
 
     } else if (this.type === 'GATLING_PEA_CAT') {
       // Gatling Neko Pea (4 Barrels + Pilot Helmet)
-      // Pilot Helmet
-      ctx.fillStyle = '#15803d';
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(0, -6, 20, Math.PI, 0); ctx.fill(); ctx.stroke();
-      
-      // Cat Ears on Helmet
-      drawKawaiiCatEars(ctx, 0, -18, 9, '#166534', '#4ade80');
+      // Cat Ears behind helmet
+      drawKawaiiCatEars(ctx, 0, -6, 7, '#15803d', '#86efac');
 
       // Head Body
       ctx.fillStyle = '#22c55e';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
-      ctx.arc(0, 0, 17, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.arc(0, 2, 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Pilot Helmet Top
+      ctx.fillStyle = '#15803d';
+      ctx.beginPath();
+      ctx.arc(0, -2, 16, Math.PI, 0); ctx.fill(); ctx.stroke();
 
       // Pilot Goggles
       ctx.fillStyle = '#38bdf8';
       ctx.strokeStyle = '#0f172a';
-      ctx.lineWidth = 1.5;
-      [-7, 7].forEach(gx => {
+      ctx.lineWidth = 1.2;
+      [-6, 6].forEach(gx => {
         ctx.beginPath();
-        ctx.arc(gx, -10, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.arc(gx, -4, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
-        ctx.arc(gx - 2, -12, 2, 0, Math.PI * 2); ctx.fill();
+        ctx.arc(gx - 1.5, -5.5, 1.5, 0, Math.PI * 2); ctx.fill();
         ctx.fillStyle = '#38bdf8';
       });
 
       // 4 Gatling Pea Barrels
-      const barrelAngles = [-0.35, -0.12, 0.12, 0.35];
-      barrelAngles.forEach(ang => {
-        const bx = Math.cos(ang) * 16;
-        const by = Math.sin(ang) * 16;
+      const barrelPositions = [
+        { x: 12, y: -4 },
+        { x: 16, y: -1 },
+        { x: 16, y: 5 },
+        { x: 12, y: 8 }
+      ];
+      barrelPositions.forEach(bp => {
         ctx.fillStyle = '#166534';
         ctx.strokeStyle = '#facc15';
         ctx.lineWidth = 1.2;
         ctx.beginPath();
-        ctx.arc(bx + 4, by, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.arc(bp.x, bp.y, 3.8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
       });
 
-      drawKawaiiEyes(ctx, -2, -1, 5, 2.5, isBlink);
-      drawKawaiiBlush(ctx, -2, 4, 8, 3);
-      drawKawaiiMouth(ctx, -2, 5, 'cat');
+      drawKawaiiEyes(ctx, -3, 2, 4.5, 2.5, isBlink);
+      drawKawaiiBlush(ctx, -3, 6, 7, 2.5);
+      drawKawaiiMouth(ctx, -3, 7, 'cat');
 
     } else if (this.type === 'DURIAN_SHREDDER') {
       // Durian Armor Shredder (Spiky Shell + Determined Cute Face)
