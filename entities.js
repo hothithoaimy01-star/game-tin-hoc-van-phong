@@ -144,38 +144,50 @@ const UNIT_TYPES = {
   // World 1: 1 - 10
   ENERGY_CORE: {
     id: 'ENERGY_CORE', name: 'Sunflower Star', vietName: 'Bé Hướng Dương Nắng',
-    cost: 50, cooldown: 6, hp: 300, unlockLevel: 0,
+    cost: 50, cooldown: 5, hp: 350, unlockLevel: 0,
     role: 'Tạo Năng Lượng (+50⭐)', desc: 'Tươi cười tỏa sáng rơi ra các Ngôi Sao Năng Lượng kẹo ngọt!',
     color: '#fbbf24', accent: '#f59e0b'
   },
   LASER_TURRET: {
     id: 'LASER_TURRET', name: 'Neko Pea Bot', vietName: 'Bé Mèo Đậu Thần',
-    cost: 100, cooldown: 6, hp: 300, unlockLevel: 1,
-    role: 'Bắn Đậu Plasma Thẳng', desc: 'Bé Mèo đeo nơ hồng bắn tia kẹo sao năng lượng thẳng hàng!',
+    cost: 100, cooldown: 5, hp: 350, unlockLevel: 1,
+    role: 'Bắn Đậu Plasma (45 DMG)', desc: 'Bé Mèo đeo nơ hồng bắn tia kẹo sao năng lượng thẳng hàng!',
     color: '#38bdf8', accent: '#ff70a6'
+  },
+  GATLING_PEA_CAT: {
+    id: 'GATLING_PEA_CAT', name: 'Gatling Neko Pea', vietName: 'Bé Mèo Gatling 4 Nòng',
+    cost: 175, cooldown: 7, hp: 400, unlockLevel: 0,
+    role: 'Bắn 4 Viên Đạn Siêu Tốc (160 DMG)', desc: 'Bé Mèo đội mũ phi công bắn liền 4 viên đạn plasma xé tan mọi quái trâu máu!',
+    color: '#22c55e', accent: '#fbbf24'
+  },
+  DURIAN_SHREDDER: {
+    id: 'DURIAN_SHREDDER', name: 'Durian Armor Shredder', vietName: 'Bé Sầu Riêng Gai Nổ',
+    cost: 75, cooldown: 10, hp: 4500, unlockLevel: 0,
+    role: 'Khiên Gai 4500 HP (45 DMG/s)', desc: 'Lớp gai sầu riêng sắc nhọn vừa chắn đường vừa xé toạc lớp giáp của quái trâu!',
+    color: '#a3e635', accent: '#65a30d'
   },
   NANO_SHIELD: {
     id: 'NANO_SHIELD', name: 'Jelly Wallnut', vietName: 'Bé Khoai Tây Giáp Dẻo',
-    cost: 50, cooldown: 20, hp: 4000, unlockLevel: 2,
-    role: 'Khiên Dẻo 4000 HP', desc: 'Bé Khoai Tây dẻo mềm núng nính ôm khiên tim chặn đứng quái!',
+    cost: 50, cooldown: 15, hp: 4500, unlockLevel: 2,
+    role: 'Khiên Dẻo 4500 HP', desc: 'Bé Khoai Tây dẻo mềm núng nính ôm khiên tim chặn đứng quái!',
     color: '#4ade80', accent: '#10b981'
   },
   CRYO_TURRET: {
     id: 'CRYO_TURRET', name: 'Penguin Frost', vietName: 'Bé Cánh Cụt Băng Tuyết',
-    cost: 175, cooldown: 8, hp: 300, unlockLevel: 3,
-    role: 'Bắn Băng Giảm 50% Tốc Độ', desc: 'Bé Cánh Cụt quàng khăn len bắn hoa tuyết làm chậm quái!',
+    cost: 150, cooldown: 6, hp: 350, unlockLevel: 3,
+    role: 'Bắn Băng Giảm 60% Tốc Độ', desc: 'Bé Cánh Cụt quàng khăn len bắn hoa tuyết làm chậm quái!',
     color: '#70d6ff', accent: '#ffffff'
   },
   EMP_BOMB: {
     id: 'EMP_BOMB', name: 'Cherry Heart', vietName: 'Bé Cherry Trái Tim Nổ',
-    cost: 150, cooldown: 35, hp: 500, unlockLevel: 4,
-    role: 'Nổ Trái Tim 3x3 (1800 DMG)', desc: 'Bé Cherry má hồng tròn vo phát nổ thành ngàn trái tim 💖!',
+    cost: 125, cooldown: 25, hp: 600, unlockLevel: 4,
+    role: 'Nổ Trái Tim 3x3 (2200 DMG)', desc: 'Bé Cherry má hồng tròn vo phát nổ thành ngàn trái tim 💖!',
     color: '#ff5d8f', accent: '#ff85a2'
   },
   RAILGUN_CANNON: {
     id: 'RAILGUN_CANNON', name: 'Bunny Dual Cannon', vietName: 'Bé Thỏ Pháo Kép Cuti',
-    cost: 200, cooldown: 8, hp: 350, unlockLevel: 5,
-    role: 'Bắn x2 Kẹo Mút Siêu Tốc', desc: 'Bé Thỏ đeo kính phi công bắn liền 2 phát kẹo mút uy lực!',
+    cost: 175, cooldown: 7, hp: 400, unlockLevel: 5,
+    role: 'Bắn x2 Kẹo Mút (90 DMG)', desc: 'Bé Thỏ đeo kính phi công bắn liền 2 phát kẹo mút uy lực!',
     color: '#fb923c', accent: '#f97316'
   },
   TESLA_COIL: {
@@ -400,72 +412,72 @@ const UNIT_TYPES = {
 const VIRUS_TYPES = {
   TROJAN_BUG: {
     id: 'TROJAN_BUG', name: 'Bé Bọ Slime Cánh Cam', vietName: 'Bé Bọ Slime Cánh Cam',
-    hp: 180, speed: 0.35, damage: 100, score: 100, color: '#4ade80',
+    hp: 110, speed: 0.35, damage: 80, score: 100, color: '#4ade80',
     desc: 'Bé bọ slime tròn xoe má hồng, nhún nhảy lon ton đáng yêu!'
   },
   ENCRYPTED_WORM: {
     id: 'ENCRYPTED_WORM', name: 'Bé Sâu Thạch Bảy Màu', vietName: 'Bé Sâu Thạch Bảy Màu',
-    hp: 420, speed: 0.28, damage: 100, score: 150, color: '#fbbf24',
+    hp: 220, speed: 0.28, damage: 85, score: 150, color: '#fbbf24',
     desc: 'Bé sâu kẹo dẻo đội mũ cube, uốn lượn nhún nhảy với lớp thạch bảo vệ.'
   },
   RANSOMWARE_BRUTE: {
     id: 'RANSOMWARE_BRUTE', name: 'Bé Gấu Slime Bụng Bự', vietName: 'Bé Gấu Slime Bụng Bự',
-    hp: 1200, speed: 0.20, damage: 160, score: 250, color: '#a855f7',
+    hp: 750, speed: 0.20, damage: 130, score: 250, color: '#a855f7',
     desc: 'Bé gấu slime tròn xoe ôm ổ khóa kẹo ngọt to bự, bước đi lạch bạch.'
   },
   GLITCH_SPRINTER: {
     id: 'GLITCH_SPRINTER', name: 'Bé Thỏ Lướt Sóng Sao', vietName: 'Bé Thỏ Lướt Sóng Sao',
-    hp: 260, speed: 0.65, damage: 120, score: 200, color: '#38bdf8',
+    hp: 180, speed: 0.60, damage: 100, score: 200, color: '#38bdf8',
     desc: 'Bé thỏ tinh nghịch nhảy tót qua bé cây đầu tiên gặp phải!'
   },
   STEALTH_SPYWARE: {
     id: 'STEALTH_SPYWARE', name: 'Bé Ma Thạch Nơ Xinh', vietName: 'Bé Ma Thạch Nơ Xinh',
-    hp: 350, speed: 0.38, damage: 110, score: 220, color: '#c084fc', isStealth: true,
+    hp: 220, speed: 0.38, damage: 95, score: 220, color: '#c084fc', isStealth: true,
     desc: 'Bé ma trong suốt bồng bềnh lấp lánh như giọt thạch ngọt ngào.'
   },
   BALLOON_SLIME: {
     id: 'BALLOON_SLIME', name: 'Bé Slime Bóng Bay Cầu Vồng', vietName: 'Bé Slime Bóng Bay Cầu Vồng',
-    hp: 280, speed: 0.40, damage: 120, score: 240, color: '#f472b6', isFlying: true,
+    hp: 190, speed: 0.38, damage: 100, score: 240, color: '#f472b6', isFlying: true,
     desc: 'Cầm chùm bóng bay lơ lửng trên không trung né tránh đạn bắn dưới mặt đất!'
   },
   DIGGER_MOLE: {
     id: 'DIGGER_MOLE', name: 'Bé Chuột Chũi Slime Đào Hầm', vietName: 'Bé Chuột Chũi Slime Đào Hầm',
-    hp: 450, speed: 0.42, damage: 140, score: 280, color: '#a16207', isDigger: true,
+    hp: 300, speed: 0.40, damage: 110, score: 280, color: '#a16207', isDigger: true,
     desc: 'Đào hầm chui thẳng ra sau lưng phòng tuyến rồi mới trồi lên cắn phá!'
   },
   DISCO_SLIME: {
     id: 'DISCO_SLIME', name: 'Bé Slime Vũ Công Disco', vietName: 'Bé Slime Vũ Công Disco',
-    hp: 600, speed: 0.25, damage: 130, score: 320, color: '#ec4899', isSummoner: true,
+    hp: 450, speed: 0.25, damage: 110, score: 320, color: '#ec4899', isSummoner: true,
     desc: 'Vừa đi vừa lắc lư theo điệu nhạc và triệu hồi thêm 3 bé bọ slime phụ họa!'
   },
   FROST_YETI_SLIME: {
     id: 'FROST_YETI_SLIME', name: 'Bé Slime Kem Tuyết Yeti', vietName: 'Bé Slime Kem Tuyết Yeti',
-    hp: 1500, speed: 0.22, damage: 180, score: 420, color: '#93c5fd', isFreezer: true,
+    hp: 950, speed: 0.22, damage: 140, score: 420, color: '#93c5fd', isFreezer: true,
     desc: 'Phát sóng giá lạnh làm đóng băng cây trồng khi tiến lại gần!'
   },
   DIVER_SLIME: {
     id: 'DIVER_SLIME', name: 'Bé Slime Thợ Lặn Kính Bơi', vietName: 'Bé Slime Thợ Lặn Kính Bơi',
-    hp: 550, speed: 0.32, damage: 130, score: 260, color: '#06b6d4', isDiver: true,
+    hp: 380, speed: 0.32, damage: 110, score: 260, color: '#06b6d4', isDiver: true,
     desc: 'Đeo kính bơi và lặn né tránh 40% đạn bắn tới khi di chuyển!'
   },
   NINJA_SLIME: {
     id: 'NINJA_SLIME', name: 'Bé Slime Ninja Phóng Phi Tiêu', vietName: 'Bé Slime Ninja Phóng Phi Tiêu',
-    hp: 400, speed: 0.48, damage: 150, score: 300, color: '#475569', isShooter: true,
+    hp: 280, speed: 0.45, damage: 120, score: 300, color: '#475569', isShooter: true,
     desc: 'Đeo khăn bịt mặt ninja và phóng phi tiêu kẹo từ xa vào cây trồng!'
   },
   HYDRA_TROJAN: {
     id: 'HYDRA_TROJAN', name: 'Bé Slime Rồng 3 Đầu Chibi', vietName: 'Bé Slime Rồng 3 Đầu Chibi',
-    hp: 750, speed: 0.30, damage: 130, score: 350, color: '#f43f5e', isSplitter: true,
+    hp: 550, speed: 0.30, damage: 120, score: 350, color: '#f43f5e', isSplitter: true,
     desc: 'Bé rồng 3 đầu khi vỡ ra sẽ tách thành 2 bé bọ slime nhỏ!'
   },
   NANO_SWARM_COLONY: {
     id: 'NANO_SWARM_COLONY', name: 'Đàn Hạt Slime Cầu Vồng', vietName: 'Đàn Hạt Slime Cầu Vồng',
-    hp: 1100, speed: 0.24, damage: 140, score: 300, color: '#34d399', isRegen: true,
+    hp: 750, speed: 0.24, damage: 120, score: 300, color: '#34d399', isRegen: true,
     desc: 'Đàn hạt slime liên tục tự phục hồi +40 HP mỗi giây khi di chuyển!'
   },
   BIO_SYNTH_VIRUS: {
     id: 'BIO_SYNTH_VIRUS', name: 'Bé Sứa Slime Biển Dạ Quang', vietName: 'Bé Sứa Slime Biển Dạ Quang',
-    hp: 1600, speed: 0.26, damage: 160, score: 400, color: '#a3e635', isVampire: true,
+    hp: 1100, speed: 0.26, damage: 130, score: 400, color: '#a3e635', isVampire: true,
     desc: 'Bé sứa mềm dẻo phát sáng, khi cắn cây sẽ tự hút máu hồi phục!'
   },
   CYBER_ZOMBIE_MECH: {
@@ -548,9 +560,9 @@ class TechUnit {
     this.radius = grid.cellW * 0.38;
 
     this.shootTimer = 0;
-    this.shootInterval = ['BANANA_LAUNCHER', 'PLASMA_MORTAR'].includes(type) ? 2.2 : type === 'SHROOM_PUFF' ? 0.9 : 1.4;
+    this.shootInterval = type === 'GATLING_PEA_CAT' ? 1.05 : ['BANANA_LAUNCHER', 'PLASMA_MORTAR'].includes(type) ? 2.0 : type === 'SHROOM_PUFF' ? 0.85 : 1.3;
     this.energyTimer = 5;
-    this.energyInterval = 18;
+    this.energyInterval = 8.5;
     this.animTime = Math.random() * 10;
     this.flashHit = 0;
     this.isOverclocked = false;
@@ -605,9 +617,21 @@ class TechUnit {
       }
     }
 
+    // Durian Shredder Contact Shred Damage
+    if (this.type === 'DURIAN_SHREDDER') {
+      gameState.viruses.forEach(v => {
+        if (v.row === this.row && Math.abs(v.x - this.x) < this.grid.cellW * 0.75 && v.hp > 0) {
+          v.takeDamage(55 * dt, gameState);
+          if (Math.random() < 0.18) {
+            gameState.spawnLaserSpark(v.x, v.y, '#a3e635');
+          }
+        }
+      });
+    }
+
     // 2. Shooting Plants
     const shootingTypes = [
-      'LASER_TURRET', 'CRYO_TURRET', 'RAILGUN_CANNON', 'SCATTER_SHOTGUN', 'SNIPER_TURRET',
+      'LASER_TURRET', 'GATLING_PEA_CAT', 'CRYO_TURRET', 'RAILGUN_CANNON', 'SCATTER_SHOTGUN', 'SNIPER_TURRET',
       'PLASMA_MORTAR', 'MISSILE_SILO', 'FLAMETHROWER_TURRET', 'CACTUS_SPIKE', 'SHROOM_PUFF',
       'MANGO_BOOMERANG', 'LEMON_VOLT', 'PINEAPPLE_TANK', 'BANANA_LAUNCHER', 'BLUEBERRY_FROST',
       'RAINBOW_FUNGUS', 'MYSTIC_DRAGON_PLANT'
@@ -773,21 +797,31 @@ class TechUnit {
   fireProjectile(gameState) {
     const dmgBonus = gameState.upgrades.plasmaPower ? 1.25 : 1.0;
 
-    if (this.type === 'LASER_TURRET') {
-      gameState.projectiles.push(new Projectile(this.x + 22, this.y, this.row, 'LASER', 20 * dmgBonus));
+    if (this.type === 'GATLING_PEA_CAT') {
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+          if (this.hp > 0 && gameState.isPlaying && !gameState.isGameOver) {
+            gameState.projectiles.push(new Projectile(this.x + 22, this.y, this.row, 'LASER', 40 * dmgBonus));
+            window.cyberAudio.playLaser(850 + i * 40, 0.08);
+            gameState.spawnMuzzleFlash(this.x + 22, this.y, '#22c55e');
+          }
+        }, i * 85);
+      }
+    } else if (this.type === 'LASER_TURRET') {
+      gameState.projectiles.push(new Projectile(this.x + 22, this.y, this.row, 'LASER', 45 * dmgBonus));
       window.cyberAudio.playLaser(750, 0.1);
       gameState.spawnMuzzleFlash(this.x + 22, this.y, '#38bdf8');
     } else if (this.type === 'CRYO_TURRET') {
-      gameState.projectiles.push(new Projectile(this.x + 22, this.y, this.row, 'CRYO', 20 * dmgBonus));
+      gameState.projectiles.push(new Projectile(this.x + 22, this.y, this.row, 'CRYO', 35 * dmgBonus));
       window.cyberAudio.playCryoShot();
       gameState.spawnMuzzleFlash(this.x + 22, this.y, '#70d6ff');
     } else if (this.type === 'RAILGUN_CANNON') {
-      gameState.projectiles.push(new Projectile(this.x + 22, this.y - 6, this.row, 'RAILGUN', 22 * dmgBonus));
+      gameState.projectiles.push(new Projectile(this.x + 22, this.y - 6, this.row, 'RAILGUN', 45 * dmgBonus));
       window.cyberAudio.playRailgun();
       gameState.spawnMuzzleFlash(this.x + 22, this.y - 6, '#fb923c');
       setTimeout(() => {
-        if (this.hp > 0) {
-          gameState.projectiles.push(new Projectile(this.x + 22, this.y + 6, this.row, 'RAILGUN', 22 * dmgBonus));
+        if (this.hp > 0 && gameState.isPlaying && !gameState.isGameOver) {
+          gameState.projectiles.push(new Projectile(this.x + 22, this.y + 6, this.row, 'RAILGUN', 45 * dmgBonus));
           window.cyberAudio.playRailgun();
           gameState.spawnMuzzleFlash(this.x + 22, this.y + 6, '#fb923c');
         }
@@ -796,13 +830,13 @@ class TechUnit {
       [-1, 0, 1].forEach(rowOffset => {
         const targetRow = this.row + rowOffset;
         if (targetRow >= 0 && targetRow < this.grid.rows) {
-          gameState.projectiles.push(new Projectile(this.x + 20, this.y, targetRow, 'SCATTER', 18 * dmgBonus, rowOffset * 100));
+          gameState.projectiles.push(new Projectile(this.x + 20, this.y, targetRow, 'SCATTER', 30 * dmgBonus, rowOffset * 100));
         }
       });
       window.cyberAudio.playShotgun();
       gameState.spawnMuzzleFlash(this.x + 22, this.y, '#facc15');
     } else if (this.type === 'SNIPER_TURRET') {
-      gameState.projectiles.push(new Projectile(this.x + 25, this.y, this.row, 'SNIPER', 90 * dmgBonus));
+      gameState.projectiles.push(new Projectile(this.x + 25, this.y, this.row, 'SNIPER', 140 * dmgBonus));
       window.cyberAudio.playSniper();
       gameState.spawnMuzzleFlash(this.x + 25, this.y, '#f43f5e');
     } else if (this.type === 'PLASMA_MORTAR') {
@@ -973,6 +1007,93 @@ class TechUnit {
       ctx.roundRect(-15, -4, 30, 7, 4); ctx.fill();
       drawKawaiiEyes(ctx, 0, -10, 6, 3, isBlink);
       drawKawaiiBlush(ctx, 0, -7, 9, 3.2);
+
+    } else if (this.type === 'GATLING_PEA_CAT') {
+      // Gatling Neko Pea (4 Barrels + Pilot Helmet)
+      // Pilot Helmet
+      ctx.fillStyle = '#15803d';
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(0, -6, 20, Math.PI, 0); ctx.fill(); ctx.stroke();
+      
+      // Cat Ears on Helmet
+      drawKawaiiCatEars(ctx, 0, -18, 9, '#166534', '#4ade80');
+
+      // Head Body
+      ctx.fillStyle = '#22c55e';
+      ctx.beginPath();
+      ctx.arc(0, 0, 17, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Pilot Goggles
+      ctx.fillStyle = '#38bdf8';
+      ctx.strokeStyle = '#0f172a';
+      ctx.lineWidth = 1.5;
+      [-7, 7].forEach(gx => {
+        ctx.beginPath();
+        ctx.arc(gx, -10, 6, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(gx - 2, -12, 2, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#38bdf8';
+      });
+
+      // 4 Gatling Pea Barrels
+      const barrelAngles = [-0.35, -0.12, 0.12, 0.35];
+      barrelAngles.forEach(ang => {
+        const bx = Math.cos(ang) * 16;
+        const by = Math.sin(ang) * 16;
+        ctx.fillStyle = '#166534';
+        ctx.strokeStyle = '#facc15';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.arc(bx + 4, by, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      });
+
+      drawKawaiiEyes(ctx, -2, -1, 5, 2.5, isBlink);
+      drawKawaiiBlush(ctx, -2, 4, 8, 3);
+      drawKawaiiMouth(ctx, -2, 5, 'cat');
+
+    } else if (this.type === 'DURIAN_SHREDDER') {
+      // Durian Armor Shredder (Spiky Shell + Determined Cute Face)
+      ctx.fillStyle = '#65a30d';
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 2.2;
+      
+      // Outer Spikes (12 spikes around perimeter)
+      const numSpikes = 12;
+      ctx.beginPath();
+      for (let s = 0; s < numSpikes; s++) {
+        const ang = (s / numSpikes) * Math.PI * 2;
+        const outR = 23 + (s % 2 === 0 ? 3 : 0);
+        const inR = 17;
+        const ox = Math.cos(ang) * outR;
+        const oy = Math.sin(ang) * outR;
+        const midAng = ang + Math.PI / numSpikes;
+        const ix = Math.cos(midAng) * inR;
+        const iy = Math.sin(midAng) * inR;
+        if (s === 0) ctx.moveTo(ox, oy);
+        else ctx.lineTo(ox, oy);
+        ctx.lineTo(ix, iy);
+      }
+      ctx.closePath();
+      ctx.fill(); ctx.stroke();
+
+      // Inner Soft Durian Face
+      ctx.fillStyle = '#fef08a';
+      ctx.strokeStyle = '#a3e635';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(0, 0, 13, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+      // Cute Grumpy / Determined Protector Eyes & Mouth
+      drawKawaiiEyes(ctx, 0, -2, 5, 3, isBlink);
+      drawKawaiiBlush(ctx, 0, 3, 7, 2.8);
+      
+      // Little Tough Spiky Bandana
+      ctx.fillStyle = '#f97316';
+      ctx.beginPath();
+      ctx.roundRect(-10, -11, 20, 5, 2); ctx.fill();
 
     } else if (this.type === 'EMP_BOMB') {
       // Cherry Bomb

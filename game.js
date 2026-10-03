@@ -89,9 +89,9 @@ function generateLevelConfigs() {
       world: 'day',
       worldName: 'THẾ GIỚI 1: THẢO NGUYÊN NẮNG ẤM 🌻',
       title: isBoss ? 'MÀN 10 (TRÙM ĐẠI ĐẾ SLIME): GIẢI CỨU VƯỜN HOA' : `MÀN ${i < 10 ? '0' + i : i}: BẢO VỆ ĐỒNG CỎ XANH`,
-      initialEnergy: 200 + i * 15,
+      initialEnergy: 350 + i * 25,
       hasSkyEnergy: true,
-      skyEnergyInterval: 8.0,
+      skyEnergyInterval: 6.5,
       waves: waves,
       isBoss: isBoss
     };
@@ -340,6 +340,7 @@ class CyberGame {
   }
 
   loadActiveAccount() {
+    const starterUnits = ['ENERGY_CORE', 'LASER_TURRET', 'GATLING_PEA_CAT', 'DURIAN_SHREDDER', 'NANO_SHIELD', 'CRYO_TURRET', 'EMP_BOMB'];
     const activeEmail = localStorage.getItem('cyber_active_email') || '';
     if (activeEmail) {
       const profileStr = localStorage.getItem('cyber_profile_' + activeEmail.trim().toLowerCase());
@@ -357,8 +358,14 @@ class CyberGame {
           this.unlockedLevel = p.unlockedLevel || 1;
           this.hasNightKey = !!p.hasNightKey;
           this.hasCloudKey = !!p.hasCloudKey;
-          this.unlockedUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : ['ENERGY_CORE', 'LASER_TURRET'];
-          this.selectedDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : ['ENERGY_CORE', 'LASER_TURRET'];
+          
+          let uUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : starterUnits;
+          starterUnits.forEach(u => { if (!uUnits.includes(u)) uUnits.push(u); });
+          this.unlockedUnits = uUnits;
+
+          let sDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : starterUnits.slice(0, 6);
+          starterUnits.slice(0, 6).forEach(u => { if (!sDeck.includes(u) && sDeck.length < 6) sDeck.push(u); });
+          this.selectedDeck = sDeck;
           return;
         } catch (e) {
           console.warn('Failed to parse account profile', e);
@@ -372,8 +379,15 @@ class CyberGame {
     this.unlockedLevel = parseInt(localStorage.getItem('cyber_unlocked_level') || '1', 10);
     this.hasNightKey = localStorage.getItem('cyber_night_key') === 'true';
     this.hasCloudKey = localStorage.getItem('cyber_cloud_key') === 'true';
-    this.unlockedUnits = JSON.parse(localStorage.getItem('cyber_unlocked_units') || '["ENERGY_CORE", "LASER_TURRET"]');
-    this.selectedDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || '["ENERGY_CORE", "LASER_TURRET"]');
+    
+    let uUnits = JSON.parse(localStorage.getItem('cyber_unlocked_units') || JSON.stringify(starterUnits));
+    starterUnits.forEach(u => { if (!uUnits.includes(u)) uUnits.push(u); });
+    this.unlockedUnits = uUnits;
+
+    let sDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || JSON.stringify(starterUnits.slice(0, 6)));
+    starterUnits.slice(0, 6).forEach(u => { if (!sDeck.includes(u) && sDeck.length < 6) sDeck.push(u); });
+    this.selectedDeck = sDeck;
+
     this.currentAccount = {
       email: activeEmail,
       name: localStorage.getItem('cyber_player_name') || 'Bé Mèo Dễ Thương',
