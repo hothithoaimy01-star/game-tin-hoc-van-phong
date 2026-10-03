@@ -306,26 +306,28 @@ class CyberGame {
 
   resizeCanvas() {
     const wrapper = document.getElementById('canvas-wrapper');
-    if (!wrapper) return;
-    const w = wrapper.clientWidth || window.innerWidth;
-    const h = wrapper.clientHeight || (window.innerHeight - 90);
+    const w = (wrapper && wrapper.clientWidth > 50 ? wrapper.clientWidth : window.innerWidth) || 1200;
+    const h = (wrapper && wrapper.clientHeight > 50 ? wrapper.clientHeight : (window.innerHeight - 96)) || 700;
 
-    this.canvas.width = w;
-    this.canvas.height = h;
+    this.canvas.width = Math.max(320, w);
+    this.canvas.height = Math.max(240, h);
 
     // Dynamically calculate grid cell size for all screen sizes (mobile portrait/landscape & desktop)
-    const marginRatio = w < 600 ? 0.08 : w < 900 ? 0.12 : 0.15;
-    const availableW = Math.max(260, w * (1 - marginRatio));
-    const availableH = Math.max(180, h - (w < 600 ? 15 : 30));
+    const availableW = this.canvas.width;
+    const availableH = this.canvas.height;
 
-    const maxCellW = Math.floor(availableW / (this.grid.cols + 0.8));
-    const maxCellH = Math.floor(availableH / this.grid.rows);
-    const cellSize = Math.max(28, Math.min(maxCellW, maxCellH, 84));
+    const marginRatio = availableW < 600 ? 0.06 : availableW < 900 ? 0.10 : 0.14;
+    const playW = Math.max(280, availableW * (1 - marginRatio));
+    const playH = Math.max(200, availableH - (availableW < 600 ? 25 : 55));
+
+    const maxCellW = Math.floor(playW / (this.grid.cols + 1.2));
+    const maxCellH = Math.floor(playH / this.grid.rows);
+    const cellSize = Math.max(32, Math.min(maxCellW, maxCellH, 90));
 
     this.grid.cellW = cellSize;
     this.grid.cellH = cellSize;
-    this.grid.startX = Math.max(Math.floor(cellSize * 0.9), Math.floor((w - this.grid.cellW * this.grid.cols) / 2) + Math.floor(cellSize * 0.35));
-    this.grid.startY = Math.max(6, Math.floor((h - this.grid.cellH * this.grid.rows) / 2));
+    this.grid.startX = Math.max(Math.floor(cellSize * 1.1), Math.floor((availableW - this.grid.cellW * this.grid.cols) / 2) + Math.floor(cellSize * 0.45));
+    this.grid.startY = Math.max(12, Math.floor((availableH - this.grid.cellH * this.grid.rows) / 2));
 
     this.units.forEach(u => {
       u.x = this.grid.startX + u.col * this.grid.cellW + this.grid.cellW / 2;
@@ -1239,6 +1241,7 @@ class CyberGame {
     this.currentLevel = levelNum;
     const config = LEVEL_CONFIGS[levelNum] || LEVEL_CONFIGS[1];
 
+    this.resizeCanvas();
     this.energy = config.initialEnergy;
     this.score = 0;
     this.kills = 0;
@@ -2127,4 +2130,10 @@ class CyberGame {
 // Instantiate Game
 window.addEventListener('DOMContentLoaded', () => {
   window.cyberGame = new CyberGame();
+  setTimeout(() => {
+    if (window.cyberGame) window.cyberGame.resizeCanvas();
+  }, 60);
+  setTimeout(() => {
+    if (window.cyberGame) window.cyberGame.resizeCanvas();
+  }, 350);
 });
