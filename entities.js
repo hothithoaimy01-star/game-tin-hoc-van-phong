@@ -1581,3 +1581,16 @@ class FloatingText {
     ctx.restore();
   }
 }
+
+// Global exports for browser compatibility
+if (typeof window !== 'undefined') {
+  window.UNIT_TYPES = UNIT_TYPES;
+  window.VIRUS_TYPES = VIRUS_TYPES;
+  window.TechUnit = TechUnit;
+  window.VirusEnemy = VirusEnemy;
+  window.EnergyOrb = EnergyOrb;
+  window.FirewallScanner = FirewallScanner;
+  window.Projectile = Projectile;
+  window.Particle = Particle;
+  window.FloatingText = FloatingText;
+}
