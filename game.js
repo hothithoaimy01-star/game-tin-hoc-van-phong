@@ -240,13 +240,15 @@ class CyberGame {
       cellH: 100
     };
 
-    this.chips = parseInt(localStorage.getItem('cyber_chips') || '150', 10);
-    this.upgrades = JSON.parse(localStorage.getItem('cyber_upgrades') || '{}');
-    this.unlockedLevel = parseInt(localStorage.getItem('cyber_unlocked_level') || '1', 10);
-    this.hasNightKey = localStorage.getItem('cyber_night_key') === 'true';
-    this.hasCloudKey = localStorage.getItem('cyber_cloud_key') === 'true';
-    this.unlockedUnits = JSON.parse(localStorage.getItem('cyber_unlocked_units') || '["ENERGY_CORE", "LASER_TURRET"]');
-    this.selectedDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || '["ENERGY_CORE", "LASER_TURRET"]');
+    this.selectedAvatar = '🐱';
+    this.currentAccount = {
+      email: '',
+      name: 'Bé Mèo Dễ Thương',
+      avatar: '🐱'
+    };
+
+    // Load active account or fallback
+    this.loadActiveAccount();
     this.activeWorldTab = 'day';
 
     // Floating Clouds / Bubbles background particles
@@ -302,42 +304,143 @@ class CyberGame {
     requestAnimationFrame((t) => this.gameLoop(t));
   }
 
-  resizeCanvas() {
-    const wrapper = document.getElementById('canvas-wrapper');
-    if (!wrapper) return;
-    const w = wrapper.clientWidth || window.innerWidth;
-    const h = wrapper.clientHeight || (window.innerHeight - 90);
+  loadActiveAccount() {
+    const activeEmail = localStorage.getItem('cyber_active_email') || '';
+    if (activeEmail) {
+      const profileStr = localStorage.getItem('cyber_profile_' + activeEmail.trim().toLowerCase());
+      if (profileStr) {
+        try {
+          const p = JSON.parse(profileStr);
+          this.currentAccount = {
+            email: p.email || activeEmail,
+            name: p.name || p.email.split('@')[0] || 'Bé Mèo Dễ Thương',
+            avatar: p.avatar || '🐱'
+          };
+          this.selectedAvatar = this.currentAccount.avatar;
+          this.chips = typeof p.chips === 'number' ? p.chips : 150;
+          this.upgrades = p.upgrades || {};
+          this.unlockedLevel = p.unlockedLevel || 1;
+          this.hasNightKey = !!p.hasNightKey;
+          this.hasCloudKey = !!p.hasCloudKey;
+          this.unlockedUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : ['ENERGY_CORE', 'LASER_TURRET'];
+          this.selectedDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : ['ENERGY_CORE', 'LASER_TURRET'];
+          return;
+        } catch (e) {
+          console.warn('Failed to parse account profile', e);
+        }
+      }
+    }
 
-    this.canvas.width = w;
-    this.canvas.height = h;
+    // Default or guest load
+    this.chips = parseInt(localStorage.getItem('cyber_chips') || '150', 10);
+    this.upgrades = JSON.parse(localStorage.getItem('cyber_upgrades') || '{}');
+    this.unlockedLevel = parseInt(localStorage.getItem('cyber_unlocked_level') || '1', 10);
+    this.hasNightKey = localStorage.getItem('cyber_night_key') === 'true';
+    this.hasCloudKey = localStorage.getItem('cyber_cloud_key') === 'true';
+    this.unlockedUnits = JSON.parse(localStorage.getItem('cyber_unlocked_units') || '["ENERGY_CORE", "LASER_TURRET"]');
+    this.selectedDeck = JSON.parse(localStorage.getItem('cyber_selected_deck') || '["ENERGY_CORE", "LASER_TURRET"]');
+    this.currentAccount = {
+      email: activeEmail,
+      name: localStorage.getItem('cyber_player_name') || 'Bé Mèo Dễ Thương',
+      avatar: localStorage.getItem('cyber_player_avatar') || '🐱'
+    };
+    this.selectedAvatar = this.currentAccount.avatar;
+  }
 
-    // Dynamically calculate grid cell size for all screen sizes (mobile portrait/landscape & desktop)
-    const marginRatio = w < 600 ? 0.08 : w < 900 ? 0.12 : 0.15;
-    const availableW = Math.max(260, w * (1 - marginRatio));
-    const availableH = Math.max(180, h - (w < 600 ? 15 : 30));
+  saveActiveAccount() {
+    // 1. Save local session keys
+    localStorage.setItem('cyber_chips', this.chips.toString());
+    localStorage.setItem('cyber_upgrades', JSON.stringify(this.upgrades));
+    localStorage.setItem('cyber_unlocked_level', this.unlockedLevel.toString());
+    localStorage.setItem('cyber_night_key', this.hasNightKey.toString());
+    localStorage.setItem('cyber_cloud_key', this.hasCloudKey.toString());
+    localStorage.setItem('cyber_unlocked_units', JSON.stringify(this.unlockedUnits));
+    localStorage.setItem('cyber_selected_deck', JSON.stringify(this.selectedDeck));
+    localStorage.setItem('cyber_player_name', this.currentAccount.name);
+    localStorage.setItem('cyber_player_avatar', this.currentAccount.avatar);
 
-    const maxCellW = Math.floor(availableW / (this.grid.cols + 0.8));
-    const maxCellH = Math.floor(availableH / this.grid.rows);
-    const cellSize = Math.max(28, Math.min(maxCellW, maxCellH, 84));
+    // 2. Save profile under email if logged in
+    if (this.currentAccount.email) {
+      const emailKey = this.currentAccount.email.trim().toLowerCase();
+      localStorage.setItem('cyber_active_email', emailKey);
 
-    this.grid.cellW = cellSize;
-    this.grid.cellH = cellSize;
-    this.grid.startX = Math.max(Math.floor(cellSize * 0.9), Math.floor((w - this.grid.cellW * this.grid.cols) / 2) + Math.floor(cellSize * 0.35));
-    this.grid.startY = Math.max(6, Math.floor((h - this.grid.cellH * this.grid.rows) / 2));
+      const profileData = {
+        email: this.currentAccount.email,
+        name: this.currentAccount.name,
+        avatar: this.currentAccount.avatar,
+        chips: this.chips,
+        upgrades: this.upgrades,
+        unlockedLevel: this.unlockedLevel,
+        hasNightKey: this.hasNightKey,
+        hasCloudKey: this.hasCloudKey,
+        unlockedUnits: this.unlockedUnits,
+        selectedDeck: this.selectedDeck,
+        lastSaved: Date.now()
+      };
+      localStorage.setItem('cyber_profile_' + emailKey, JSON.stringify(profileData));
 
-    this.units.forEach(u => {
-      u.x = this.grid.startX + u.col * this.grid.cellW + this.grid.cellW / 2;
-      u.y = this.grid.startY + u.row * this.grid.cellH + this.grid.cellH / 2;
-    });
-    this.scanners.forEach(s => {
-      s.x = this.grid.startX - this.grid.cellW * 0.65;
-      s.y = this.grid.startY + s.row * this.grid.cellH + this.grid.cellH / 2;
-    });
+      // Update accounts registry
+      let accounts = JSON.parse(localStorage.getItem('cyber_all_accounts') || '[]');
+      const idx = accounts.findIndex(a => a.email && a.email.toLowerCase() === emailKey);
+      const accMeta = {
+        email: this.currentAccount.email,
+        name: this.currentAccount.name,
+        avatar: this.currentAccount.avatar,
+        level: this.unlockedLevel,
+        chips: this.chips,
+        lastLogin: Date.now()
+      };
+      if (idx >= 0) {
+        accounts[idx] = accMeta;
+      } else {
+        accounts.push(accMeta);
+      }
+      localStorage.setItem('cyber_all_accounts', JSON.stringify(accounts));
+    }
+  }
+
+  updateAccountUI() {
+    const avatar = this.currentAccount.avatar || '🐱';
+    const name = this.currentAccount.name || 'Bé Mèo Dễ Thương';
+    const email = this.currentAccount.email;
+
+    // Top Bar HUD
+    const hudAvatar = document.getElementById('hud-user-avatar');
+    const hudName = document.getElementById('hud-user-name');
+    if (hudAvatar) hudAvatar.textContent = avatar;
+    if (hudName) hudName.textContent = email ? (name.length > 8 ? name.slice(0, 8) + '..' : name) : 'TÀI KHOẢN';
+
+    // Start Screen Banner
+    const bannerAvatar = document.getElementById('banner-user-avatar');
+    const bannerName = document.getElementById('banner-user-name');
+    const bannerEmail = document.getElementById('banner-user-email');
+    if (bannerAvatar) bannerAvatar.textContent = avatar;
+    if (bannerName) bannerName.textContent = name;
+    if (bannerEmail) {
+      bannerEmail.textContent = email ? `💌 ${email} • Đã lưu tự động cho lần sau ✓` : 'Chưa đăng nhập email • Nhấn để lưu tiến trình';
+      bannerEmail.style.color = email ? '#a7f3d0' : '#fbcfe8';
+    }
+
+    // Account Modal Header Details
+    const accModalAvatar = document.getElementById('acc-current-avatar');
+    const accModalName = document.getElementById('acc-current-name');
+    const accModalEmail = document.getElementById('acc-current-email');
+    const accStatLvl = document.getElementById('acc-stat-level');
+    const accStatChips = document.getElementById('acc-stat-chips');
+    const accStatUnits = document.getElementById('acc-stat-units');
+
+    if (accModalAvatar) accModalAvatar.textContent = avatar;
+    if (accModalName) accModalName.textContent = name;
+    if (accModalEmail) accModalEmail.textContent = email ? `Email: ${email}` : 'Chưa liên kết email tài khoản';
+    if (accStatLvl) accStatLvl.textContent = `Màn ${this.unlockedLevel}/40`;
+    if (accStatChips) accStatChips.textContent = `${this.chips} 🍬`;
+    if (accStatUnits) accStatUnits.textContent = `${this.unlockedUnits.length}/40`;
   }
 
   initUI() {
     this.updateChipsUI();
     this.updateWorldTabsAndKeysUI();
+    this.updateAccountUI();
     this.renderLevelGrid();
     this.renderCodex('units');
     this.renderTechLab();
@@ -346,13 +449,8 @@ class CyberGame {
   updateChipsUI() {
     document.getElementById('menu-chips-count').textContent = this.chips;
     document.getElementById('lab-chips-count').textContent = this.chips;
-    localStorage.setItem('cyber_chips', this.chips.toString());
-    localStorage.setItem('cyber_upgrades', JSON.stringify(this.upgrades));
-    localStorage.setItem('cyber_unlocked_level', this.unlockedLevel.toString());
-    localStorage.setItem('cyber_night_key', this.hasNightKey.toString());
-    localStorage.setItem('cyber_cloud_key', this.hasCloudKey.toString());
-    localStorage.setItem('cyber_unlocked_units', JSON.stringify(this.unlockedUnits));
-    localStorage.setItem('cyber_selected_deck', JSON.stringify(this.selectedDeck));
+    this.saveActiveAccount();
+    this.updateAccountUI();
   }
 
   updateWorldTabsAndKeysUI() {
@@ -657,6 +755,58 @@ class CyberGame {
       this.mouseGrid.row = -1;
     }, { passive: false });
 
+    // Account Modal Buttons & Listeners
+    const openAccount = () => this.openAccountModal();
+    const toolAcc = document.getElementById('tool-account');
+    if (toolAcc) toolAcc.addEventListener('click', openAccount);
+
+    const bannerAcc = document.getElementById('btn-open-account-banner');
+    if (bannerAcc) bannerAcc.addEventListener('click', openAccount);
+
+    const closeAcc = document.getElementById('btn-close-account');
+    if (closeAcc) closeAcc.addEventListener('click', () => {
+      document.getElementById('account-modal').classList.add('hidden');
+    });
+
+    // Avatar picker in account modal
+    document.querySelectorAll('.avatar-option').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.avatar-option').forEach(b => b.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        this.selectedAvatar = e.currentTarget.getAttribute('data-avatar') || '🐱';
+      });
+    });
+
+    // Login / Save button
+    const saveAccBtn = document.getElementById('btn-save-login-account');
+    if (saveAccBtn) {
+      saveAccBtn.addEventListener('click', () => {
+        const emailInput = document.getElementById('acc-input-email');
+        const nameInput = document.getElementById('acc-input-name');
+        const email = emailInput ? emailInput.value.trim() : '';
+        const name = nameInput ? nameInput.value.trim() : '';
+        this.loginOrRegisterEmail(email, name, this.selectedAvatar);
+      });
+    }
+
+    // Export save code
+    const exportBtn = document.getElementById('btn-export-save');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => this.exportSaveCode());
+    }
+
+    // Import save code
+    const importBtn = document.getElementById('btn-import-save');
+    if (importBtn) {
+      importBtn.addEventListener('click', () => this.importSaveCode());
+    }
+
+    // Logout
+    const logoutBtn = document.getElementById('btn-logout-account');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => this.logoutAccount());
+    }
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         this.selectedUnitType = null;
@@ -665,6 +815,246 @@ class CyberGame {
         this.updateCardSelectionUI();
       }
     });
+  }
+
+  // ==========================================================================
+  // USER ACCOUNT & PROFILE SYSTEM METHODS
+  // ==========================================================================
+  openAccountModal() {
+    const modal = document.getElementById('account-modal');
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    this.renderAccountModal();
+  }
+
+  renderAccountModal() {
+    this.updateAccountUI();
+    const emailInput = document.getElementById('acc-input-email');
+    const nameInput = document.getElementById('acc-input-name');
+    if (emailInput) emailInput.value = this.currentAccount.email || '';
+    if (nameInput) nameInput.value = this.currentAccount.name || '';
+
+    // Active avatar selection
+    document.querySelectorAll('.avatar-option').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-avatar') === (this.currentAccount.avatar || '🐱'));
+    });
+
+    // Render list of saved accounts
+    const container = document.getElementById('saved-accounts-list');
+    if (!container) return;
+
+    const accounts = JSON.parse(localStorage.getItem('cyber_all_accounts') || '[]');
+    if (accounts.length === 0) {
+      container.innerHTML = `<div style="font-size: 12px; color: #c4b5fd; text-align: center; padding: 10px;">Chưa có tài khoản nào được lưu trên máy này. Hãy nhập email phía trên để lưu nhé!</div>`;
+      return;
+    }
+
+    container.innerHTML = accounts.map(acc => {
+      const isCurrent = this.currentAccount.email && this.currentAccount.email.toLowerCase() === acc.email.toLowerCase();
+      return `
+        <div class="saved-account-item ${isCurrent ? 'current-active' : ''}">
+          <div class="saved-acc-left">
+            <span class="saved-acc-avatar">${acc.avatar || '🐱'}</span>
+            <div class="saved-acc-info">
+              <span class="saved-acc-name">${acc.name || acc.email} ${isCurrent ? '<span style="color:#4ade80;">(Đang dùng)</span>' : ''}</span>
+              <span class="saved-acc-sub">${acc.email} • Màn ${acc.level || 1} • ${acc.chips || 0} 🍬</span>
+            </div>
+          </div>
+          <div class="saved-acc-actions">
+            ${!isCurrent ? `<button class="saved-acc-btn switch" data-email="${acc.email}">Đổi sang</button>` : ''}
+            <button class="saved-acc-btn delete" data-email="${acc.email}">Xóa</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.querySelectorAll('.saved-acc-btn.switch').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const email = e.currentTarget.getAttribute('data-email');
+        this.switchAccount(email);
+      });
+    });
+
+    container.querySelectorAll('.saved-acc-btn.delete').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const email = e.currentTarget.getAttribute('data-email');
+        if (confirm(`Bạn có chắc muốn xóa tài khoản ${email} khỏi máy này?`)) {
+          this.deleteSavedAccount(email);
+        }
+      });
+    });
+  }
+
+  loginOrRegisterEmail(email, customName, avatar) {
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      alert('Vui lòng nhập địa chỉ Email hợp lệ (ví dụ: beyeu@gmail.com)!');
+      return;
+    }
+
+    const emailKey = email.trim().toLowerCase();
+    const profileStr = localStorage.getItem('cyber_profile_' + emailKey);
+
+    if (profileStr) {
+      // Account exists, load its data!
+      try {
+        const p = JSON.parse(profileStr);
+        this.currentAccount = {
+          email: email.trim(),
+          name: customName || p.name || email.split('@')[0],
+          avatar: avatar || p.avatar || '🐱'
+        };
+        this.chips = typeof p.chips === 'number' ? p.chips : 150;
+        this.upgrades = p.upgrades || {};
+        this.unlockedLevel = p.unlockedLevel || 1;
+        this.hasNightKey = !!p.hasNightKey;
+        this.hasCloudKey = !!p.hasCloudKey;
+        this.unlockedUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : ['ENERGY_CORE', 'LASER_TURRET'];
+        this.selectedDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : ['ENERGY_CORE', 'LASER_TURRET'];
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      // New email: attach current session or fresh profile
+      this.currentAccount = {
+        email: email.trim(),
+        name: customName || email.split('@')[0],
+        avatar: avatar || '🐱'
+      };
+    }
+
+    this.saveActiveAccount();
+    this.updateChipsUI();
+    this.updateWorldTabsAndKeysUI();
+    this.renderLevelGrid();
+    this.renderAccountModal();
+
+    window.cyberAudio.playUpgradeSuccess();
+    alert(`🎉 Đã đăng nhập và lưu tài khoản "${this.currentAccount.email}" thành công!\nMọi tiến trình chơi game sẽ tự động được lưu lại cho lần sau.`);
+    document.getElementById('account-modal').classList.add('hidden');
+  }
+
+  switchAccount(email) {
+    const emailKey = email.trim().toLowerCase();
+    const profileStr = localStorage.getItem('cyber_profile_' + emailKey);
+    if (!profileStr) return;
+
+    try {
+      const p = JSON.parse(profileStr);
+      this.currentAccount = {
+        email: p.email || email,
+        name: p.name || email.split('@')[0],
+        avatar: p.avatar || '🐱'
+      };
+      this.chips = typeof p.chips === 'number' ? p.chips : 150;
+      this.upgrades = p.upgrades || {};
+      this.unlockedLevel = p.unlockedLevel || 1;
+      this.hasNightKey = !!p.hasNightKey;
+      this.hasCloudKey = !!p.hasCloudKey;
+      this.unlockedUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : ['ENERGY_CORE', 'LASER_TURRET'];
+      this.selectedDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : ['ENERGY_CORE', 'LASER_TURRET'];
+
+      this.saveActiveAccount();
+      this.updateChipsUI();
+      this.updateWorldTabsAndKeysUI();
+      this.renderLevelGrid();
+      this.renderAccountModal();
+      window.cyberAudio.playUpgradeSuccess();
+      alert(`Đã chuyển sang tài khoản ${this.currentAccount.name} (${this.currentAccount.email})!`);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  deleteSavedAccount(email) {
+    const emailKey = email.trim().toLowerCase();
+    localStorage.removeItem('cyber_profile_' + emailKey);
+
+    let accounts = JSON.parse(localStorage.getItem('cyber_all_accounts') || '[]');
+    accounts = accounts.filter(a => a.email && a.email.toLowerCase() !== emailKey);
+    localStorage.setItem('cyber_all_accounts', JSON.stringify(accounts));
+
+    if (this.currentAccount.email.toLowerCase() === emailKey) {
+      this.logoutAccount();
+    } else {
+      this.renderAccountModal();
+    }
+  }
+
+  exportSaveCode() {
+    const data = {
+      email: this.currentAccount.email,
+      name: this.currentAccount.name,
+      avatar: this.currentAccount.avatar,
+      chips: this.chips,
+      upgrades: this.upgrades,
+      unlockedLevel: this.unlockedLevel,
+      hasNightKey: this.hasNightKey,
+      hasCloudKey: this.hasCloudKey,
+      unlockedUnits: this.unlockedUnits,
+      selectedDeck: this.selectedDeck,
+      version: '6.0',
+      time: Date.now()
+    };
+    try {
+      const code = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      navigator.clipboard.writeText(code).then(() => {
+        alert('📋 Đã sao chép mã sao lưu vào bộ nhớ tạm!\nBạn có thể gửi mã này qua điện thoại / máy khác và chọn "Nhập mã khôi phục" để đồng bộ tiến trình.');
+      }).catch(() => {
+        prompt('Mã sao lưu của bạn (hãy copy toàn bộ đoạn mã này):', code);
+      });
+    } catch (e) {
+      alert('Không thể tạo mã sao lưu: ' + e.message);
+    }
+  }
+
+  importSaveCode() {
+    const code = prompt('Dán mã sao lưu tiến trình của bạn vào đây:');
+    if (!code) return;
+
+    try {
+      const jsonStr = decodeURIComponent(escape(atob(code.trim())));
+      const p = JSON.parse(jsonStr);
+
+      if (typeof p.unlockedLevel !== 'number') {
+        throw new Error('Mã sao lưu không hợp lệ!');
+      }
+
+      this.currentAccount = {
+        email: p.email || this.currentAccount.email || '',
+        name: p.name || 'Bé Mèo Dễ Thương',
+        avatar: p.avatar || '🐱'
+      };
+      this.chips = typeof p.chips === 'number' ? p.chips : 150;
+      this.upgrades = p.upgrades || {};
+      this.unlockedLevel = p.unlockedLevel || 1;
+      this.hasNightKey = !!p.hasNightKey;
+      this.hasCloudKey = !!p.hasCloudKey;
+      this.unlockedUnits = Array.isArray(p.unlockedUnits) ? p.unlockedUnits : ['ENERGY_CORE', 'LASER_TURRET'];
+      this.selectedDeck = Array.isArray(p.selectedDeck) ? p.selectedDeck : ['ENERGY_CORE', 'LASER_TURRET'];
+
+      this.saveActiveAccount();
+      this.updateChipsUI();
+      this.updateWorldTabsAndKeysUI();
+      this.renderLevelGrid();
+      this.renderAccountModal();
+      window.cyberAudio.playVictory();
+      alert(`🎉 Khôi phục tiến trình thành công! Đã mở Màn ${this.unlockedLevel} với ${this.chips} 🍬 kẹo!`);
+    } catch (e) {
+      alert('❌ Mã sao lưu không đúng hoặc đã bị lỗi! Chi tiết: ' + e.message);
+    }
+  }
+
+  logoutAccount() {
+    localStorage.removeItem('cyber_active_email');
+    this.currentAccount = {
+      email: '',
+      name: 'Bé Mèo Dễ Thương',
+      avatar: '🐱'
+    };
+    this.saveActiveAccount();
+    this.updateChipsUI();
+    this.renderAccountModal();
+    alert('Đã đăng xuất tài khoản!');
   }
 
   // ==========================================================================

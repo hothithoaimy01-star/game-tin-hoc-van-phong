@@ -65,6 +65,10 @@
         <button id="tool-codex" class="hud-btn" title="Từ Điển Bé Cưng & Quái Slime">
           <span class="btn-icon">📖</span>
         </button>
+        <button id="tool-account" class="hud-btn highlight-user" title="Tài khoản người chơi & Lưu tiến trình">
+          <span class="btn-icon" id="hud-user-avatar">🐱</span>
+          <span class="btn-label" id="hud-user-name">TÀI KHOẢN</span>
+        </button>
       </div>
     </header>
 
@@ -97,9 +101,19 @@
     <!-- Start & World Map Screen Modal -->
     <div id="start-modal" class="modal-overlay">
       <div class="modal-card world-select-card">
-        <div class="cyber-badge">💖 VƯƠNG QUỐC BÉ CƯNG v6.0 • 40 MÀN CHƠI & 19 THÁP CÔNG NGHỆ SIÊU CUTI 🌸</div>
+        <div class="cyber-badge">💖 VƯƠNG QUỐC BÉ CƯNG • 40 MÀN CHƠI & 40 BÉ CÂY TRỒNG SIÊU CUTI 🌸</div>
         <h1 class="glow-title">BÉ THÁP CUTE <span class="vs-text">VS</span> QUÁI SLIME</h1>
         
+        <!-- User Profile Quick Login Banner -->
+        <div class="user-profile-banner" id="btn-open-account-banner">
+          <div class="user-avatar-badge" id="banner-user-avatar">🐱</div>
+          <div class="user-info-text">
+            <div class="user-welcome">Xin chào, <strong id="banner-user-name">Bé Mèo Dễ Thương</strong> ✨</div>
+            <div class="user-email-tag" id="banner-user-email">Chưa đăng nhập email • Nhấn để lưu tiến trình</div>
+          </div>
+          <button class="user-switch-btn" type="button">💌 ĐĂNG NHẬP / ĐỔI</button>
+        </div>
+
         <div class="header-resources-bar">
           <div class="chips-display-banner">
             <span>🍬 KẸO KIM CƯƠNG: <strong id="menu-chips-count">150</strong></span>
@@ -323,6 +337,87 @@
           </div>
         </div>
         <button id="btn-help-ok" class="cyber-btn primary center-btn">ĐÃ HIỂU - SẴN SÀNG CHIẾN ĐẤU</button>
+      </div>
+    </div>
+
+    <!-- Account / Email Login & Profile Save Modal -->
+    <div id="account-modal" class="modal-overlay hidden">
+      <div class="modal-card account-card">
+        <div class="codex-header">
+          <h2>🐱 TÀI KHOẢN NGƯỜI CHƠI & LƯU TIẾN TRÌNH</h2>
+          <button id="btn-close-account" class="close-x">✕</button>
+        </div>
+
+        <!-- Account Current Status Card -->
+        <div class="active-account-card">
+          <div class="account-avatar-large" id="acc-current-avatar">🐱</div>
+          <div class="account-details">
+            <h3 id="acc-current-name">Bé Mèo Dễ Thương</h3>
+            <span class="acc-email-badge" id="acc-current-email">Chưa liên kết email</span>
+            <div class="acc-stats-pills">
+              <span class="acc-pill">🏆 Màn cao nhất: <strong id="acc-stat-level">Màn 1</strong></span>
+              <span class="acc-pill">🍬 Kẹo: <strong id="acc-stat-chips">150</strong></span>
+              <span class="acc-pill">🌱 Tháp: <strong id="acc-stat-units">2/40</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form: Đăng nhập email / Cập nhật tài khoản -->
+        <div class="account-form-section">
+          <h4 class="section-title">💌 ĐĂNG NHẬP / ĐỔI TÀI KHOẢN EMAIL:</h4>
+          <p class="form-helper">Nhập email để tự động đồng bộ và lưu lại toàn bộ sao, kẹo, chìa khóa, màn chơi và bé cây đã mở khóa cho mọi lần chơi sau!</p>
+          
+          <div class="form-group">
+            <label for="acc-input-email">Địa chỉ Email của bạn:</label>
+            <input type="email" id="acc-input-email" class="cyber-input" placeholder="Ví dụ: beyeu@gmail.com..." autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="acc-input-name">Tên hiển thị / Biệt danh:</label>
+            <input type="text" id="acc-input-name" class="cyber-input" placeholder="Ví dụ: Bé Mèo Cuti..." maxlength="25">
+          </div>
+
+          <div class="form-group">
+            <label>Chọn Avatar Biểu Tượng:</label>
+            <div class="avatar-picker-grid" id="avatar-picker-grid">
+              <button type="button" class="avatar-option active" data-avatar="🐱">🐱</button>
+              <button type="button" class="avatar-option" data-avatar="🐰">🐰</button>
+              <button type="button" class="avatar-option" data-avatar="🦊">🦊</button>
+              <button type="button" class="avatar-option" data-avatar="🌻">🌻</button>
+              <button type="button" class="avatar-option" data-avatar="🦄">🦄</button>
+              <button type="button" class="avatar-option" data-avatar="🐼">🐼</button>
+              <button type="button" class="avatar-option" data-avatar="🍓">🍓</button>
+              <button type="button" class="avatar-option" data-avatar="🐣">🐣</button>
+              <button type="button" class="avatar-option" data-avatar="🌸">🌸</button>
+              <button type="button" class="avatar-option" data-avatar="💖">💖</button>
+            </div>
+          </div>
+
+          <div class="account-actions">
+            <button id="btn-save-login-account" class="cyber-btn primary">
+              💖 ĐĂNG NHẬP & LƯU TIẾN TRÌNH
+            </button>
+          </div>
+        </div>
+
+        <!-- Saved Accounts on this Device -->
+        <div class="saved-accounts-section" id="saved-accounts-section">
+          <h4 class="section-title">👥 TÀI KHOẢN ĐÃ LƯU TRÊN MÁY NÀY:</h4>
+          <div class="saved-accounts-list" id="saved-accounts-list">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Cloud Save / Export / Import -->
+        <div class="cloud-backup-section">
+          <h4 class="section-title">☁️ SAO LƯU & CHUYỂN TIẾN TRÌNH GIỮA CÁC MÁY:</h4>
+          <div class="backup-buttons">
+            <button id="btn-export-save" class="cyber-btn secondary small">📤 Sao chép mã sao lưu</button>
+            <button id="btn-import-save" class="cyber-btn secondary small">📥 Nhập mã khôi phục</button>
+            <button id="btn-logout-account" class="cyber-btn danger small">🚪 Đăng xuất tài khoản</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
