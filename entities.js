@@ -412,128 +412,138 @@ const UNIT_TYPES = {
 const VIRUS_TYPES = {
   TROJAN_BUG: {
     id: 'TROJAN_BUG', name: 'Bé Bọ Slime Cánh Cam', vietName: 'Bé Bọ Slime Cánh Cam',
-    hp: 110, speed: 0.35, damage: 80, score: 100, color: '#4ade80',
-    desc: 'Bé bọ slime tròn xoe má hồng, nhún nhảy lon ton đáng yêu!'
+    hp: 110, speed: 0.16, damage: 80, score: 100, color: '#4ade80',
+    desc: 'Bé bọ slime nhún nhảy chậm rãi, má hồng tròn xoe đáng yêu!'
   },
   ENCRYPTED_WORM: {
     id: 'ENCRYPTED_WORM', name: 'Bé Sâu Thạch Bảy Màu', vietName: 'Bé Sâu Thạch Bảy Màu',
-    hp: 220, speed: 0.28, damage: 85, score: 150, color: '#fbbf24',
-    desc: 'Bé sâu kẹo dẻo đội mũ cube, uốn lượn nhún nhảy với lớp thạch bảo vệ.'
+    hp: 220, speed: 0.13, damage: 85, score: 150, color: '#fbbf24',
+    desc: 'Bé sâu kẹo dẻo bò uốn lượn thong thả với lớp thạch bảo vệ.'
   },
   RANSOMWARE_BRUTE: {
     id: 'RANSOMWARE_BRUTE', name: 'Bé Gấu Slime Bụng Bự', vietName: 'Bé Gấu Slime Bụng Bự',
-    hp: 750, speed: 0.20, damage: 130, score: 250, color: '#a855f7',
-    desc: 'Bé gấu slime tròn xoe ôm ổ khóa kẹo ngọt to bự, bước đi lạch bạch.'
+    hp: 750, speed: 0.09, damage: 130, score: 250, color: '#a855f7',
+    desc: 'Bé gấu slime ôm ổ khóa kẹo ngọt to bự, bước đi lạch bạch rất chậm.'
   },
   GLITCH_SPRINTER: {
-    id: 'GLITCH_SPRINTER', name: 'Bé Thỏ Lướt Sóng Sao', vietName: 'Bé Thỏ Lướt Sóng Sao',
-    hp: 180, speed: 0.60, damage: 100, score: 200, color: '#38bdf8',
-    desc: 'Bé thỏ tinh nghịch nhảy tót qua bé cây đầu tiên gặp phải!'
+    id: 'GLITCH_SPRINTER', name: 'Bé Thỏ Lướt Sóng Sao', vietName: 'Bé Thỏ Lướt Sóng Sao (Tốc Độ ⚡)',
+    hp: 180, speed: 0.44, damage: 100, score: 200, color: '#38bdf8', isFast: true,
+    desc: '⚡ [SKILL TỐC ĐỘ]: Chạy siêu nhanh và bật nhảy qua cây trồng đầu tiên!'
   },
   STEALTH_SPYWARE: {
     id: 'STEALTH_SPYWARE', name: 'Bé Ma Thạch Nơ Xinh', vietName: 'Bé Ma Thạch Nơ Xinh',
-    hp: 220, speed: 0.38, damage: 95, score: 220, color: '#c084fc', isStealth: true,
-    desc: 'Bé ma trong suốt bồng bềnh lấp lánh như giọt thạch ngọt ngào.'
+    hp: 220, speed: 0.14, damage: 95, score: 220, color: '#c084fc', isStealth: true,
+    desc: 'Bé ma trong suốt bồng bềnh lơ lửng, trôi chầm chậm ngọt ngào.'
   },
   BALLOON_SLIME: {
     id: 'BALLOON_SLIME', name: 'Bé Slime Bóng Bay Cầu Vồng', vietName: 'Bé Slime Bóng Bay Cầu Vồng',
-    hp: 190, speed: 0.38, damage: 100, score: 240, color: '#f472b6', isFlying: true,
-    desc: 'Cầm chùm bóng bay lơ lửng trên không trung né tránh đạn bắn dưới mặt đất!'
+    hp: 190, speed: 0.14, damage: 100, score: 240, color: '#f472b6', isFlying: true,
+    desc: 'Cầm chùm bóng bay lơ lửng chầm chậm né tránh đạn bắn dưới đất!'
   },
   DIGGER_MOLE: {
     id: 'DIGGER_MOLE', name: 'Bé Chuột Chũi Slime Đào Hầm', vietName: 'Bé Chuột Chũi Slime Đào Hầm',
-    hp: 300, speed: 0.40, damage: 110, score: 280, color: '#a16207', isDigger: true,
+    hp: 300, speed: 0.15, damage: 110, score: 280, color: '#a16207', isDigger: true,
     desc: 'Đào hầm chui thẳng ra sau lưng phòng tuyến rồi mới trồi lên cắn phá!'
   },
   DISCO_SLIME: {
     id: 'DISCO_SLIME', name: 'Bé Slime Vũ Công Disco', vietName: 'Bé Slime Vũ Công Disco',
-    hp: 450, speed: 0.25, damage: 110, score: 320, color: '#ec4899', isSummoner: true,
-    desc: 'Vừa đi vừa lắc lư theo điệu nhạc và triệu hồi thêm 3 bé bọ slime phụ họa!'
+    hp: 450, speed: 0.11, damage: 110, score: 320, color: '#ec4899', isSummoner: true,
+    desc: 'Lắc lư theo điệu nhạc và triệu hồi thêm 3 bé bọ slime phụ họa!'
   },
   FROST_YETI_SLIME: {
     id: 'FROST_YETI_SLIME', name: 'Bé Slime Kem Tuyết Yeti', vietName: 'Bé Slime Kem Tuyết Yeti',
-    hp: 950, speed: 0.22, damage: 140, score: 420, color: '#93c5fd', isFreezer: true,
-    desc: 'Phát sóng giá lạnh làm đóng băng cây trồng khi tiến lại gần!'
+    hp: 950, speed: 0.10, damage: 140, score: 420, color: '#93c5fd', isFreezer: true,
+    desc: 'Bé người tuyết bước chậm rãi, phát sóng giá lạnh đóng băng cây trồng!'
   },
   DIVER_SLIME: {
     id: 'DIVER_SLIME', name: 'Bé Slime Thợ Lặn Kính Bơi', vietName: 'Bé Slime Thợ Lặn Kính Bơi',
-    hp: 380, speed: 0.32, damage: 110, score: 260, color: '#06b6d4', isDiver: true,
-    desc: 'Đeo kính bơi và lặn né tránh 40% đạn bắn tới khi di chuyển!'
+    hp: 380, speed: 0.13, damage: 110, score: 260, color: '#06b6d4', isDiver: true,
+    desc: 'Đeo kính bơi bơi chậm rãi và lặn né tránh 40% đạn bắn tới!'
   },
   NINJA_SLIME: {
-    id: 'NINJA_SLIME', name: 'Bé Slime Ninja Phóng Phi Tiêu', vietName: 'Bé Slime Ninja Phóng Phi Tiêu',
-    hp: 280, speed: 0.45, damage: 120, score: 300, color: '#475569', isShooter: true,
-    desc: 'Đeo khăn bịt mặt ninja và phóng phi tiêu kẹo từ xa vào cây trồng!'
+    id: 'NINJA_SLIME', name: 'Bé Slime Ninja Phóng Phi Tiêu', vietName: 'Bé Slime Ninja (Tốc Độ ⚡)',
+    hp: 280, speed: 0.28, damage: 120, score: 300, color: '#475569', isShooter: true, isFast: true,
+    desc: '⚡ [SKILL TỐC ĐỘ]: Thân pháp nhanh nhẹn, lướt gió phóng phi tiêu từ xa!'
   },
   HYDRA_TROJAN: {
     id: 'HYDRA_TROJAN', name: 'Bé Slime Rồng 3 Đầu Chibi', vietName: 'Bé Slime Rồng 3 Đầu Chibi',
-    hp: 550, speed: 0.30, damage: 120, score: 350, color: '#f43f5e', isSplitter: true,
-    desc: 'Bé rồng 3 đầu khi vỡ ra sẽ tách thành 2 bé bọ slime nhỏ!'
+    hp: 550, speed: 0.12, damage: 120, score: 350, color: '#f43f5e', isSplitter: true,
+    desc: 'Bé rồng 3 đầu khi bị tiêu diệt sẽ tách đôi thành 2 bé bọ slime nhỏ!'
   },
   NANO_SWARM_COLONY: {
     id: 'NANO_SWARM_COLONY', name: 'Đàn Hạt Slime Cầu Vồng', vietName: 'Đàn Hạt Slime Cầu Vồng',
-    hp: 750, speed: 0.24, damage: 120, score: 300, color: '#34d399', isRegen: true,
-    desc: 'Đàn hạt slime liên tục tự phục hồi +40 HP mỗi giây khi di chuyển!'
+    hp: 750, speed: 0.11, damage: 120, score: 300, color: '#34d399', isRegen: true,
+    desc: 'Đàn hạt slime bò chậm, liên tục tự hồi phục +40 HP mỗi giây!'
   },
   BIO_SYNTH_VIRUS: {
     id: 'BIO_SYNTH_VIRUS', name: 'Bé Sứa Slime Biển Dạ Quang', vietName: 'Bé Sứa Slime Biển Dạ Quang',
-    hp: 1100, speed: 0.26, damage: 130, score: 400, color: '#a3e635', isVampire: true,
-    desc: 'Bé sứa mềm dẻo phát sáng, khi cắn cây sẽ tự hút máu hồi phục!'
+    hp: 1100, speed: 0.12, damage: 130, score: 400, color: '#a3e635', isVampire: true,
+    desc: 'Bé sứa mềm dẻo trôi dạt chậm, khi cắn cây sẽ tự hút máu hồi phục!'
   },
   CYBER_ZOMBIE_MECH: {
-    id: 'CYBER_ZOMBIE_MECH', name: 'Bé Robot Mũi Khoan Đồ Chơi', vietName: 'Bé Robot Mũi Khoan Đồ Chơi',
-    hp: 1900, speed: 0.20, damage: 190, score: 450, color: '#fb923c',
-    desc: 'Bé robot đồ chơi mang chong chóng kẹo xoay tít phá khiên cực nhanh!'
+    id: 'CYBER_ZOMBIE_MECH', name: 'Bé Robot Chong Chóng Nổ', vietName: 'Bé Chong Chóng Nổ (Tự Nổ 💥)',
+    hp: 850, speed: 0.13, damage: 150, score: 450, color: '#fb923c', isExploder: true, explosionDamage: 250,
+    desc: '💥 [SKILL TỰ NỔ]: Khi hết máu sẽ tự phát nổ diện rộng phá hủy cây xung quanh!'
   },
   DARK_MATTER_GHOST: {
     id: 'DARK_MATTER_GHOST', name: 'Bé Mèo Đêm Mộng Mơ', vietName: 'Bé Mèo Đêm Mộng Mơ',
-    hp: 2200, speed: 0.23, damage: 170, score: 550, color: '#a855f7', isReflector: true,
+    hp: 1200, speed: 0.12, damage: 150, score: 550, color: '#a855f7', isReflector: true,
     desc: 'Bé mèo bóng đêm tím pastel có 25% cơ hội phản hồi sóng xung kích!'
   },
   ROOTKIT_TITAN: {
     id: 'ROOTKIT_TITAN', name: 'Bé Rùa Bánh Quy Bọc Giáp', vietName: 'Bé Rùa Bánh Quy Bọc Giáp',
-    hp: 2600, speed: 0.17, damage: 220, score: 600, color: '#c084fc', armorReduction: 0.45,
-    desc: 'Bé rùa mai bánh quy sô-cô-la, giảm 45% toàn bộ sát thương đạn bắn tới!'
+    hp: 1600, speed: 0.08, damage: 180, score: 600, color: '#c084fc', armorReduction: 0.45,
+    desc: 'Bé rùa mai bánh quy sô-cô-la bò siêu chậm, giảm 45% sát thương!'
+  },
+  LOGIC_BOMB_GOLEM: {
+    id: 'LOGIC_BOMB_GOLEM', name: 'Bé Khổng Lồ Kẹo Bom Nổ', vietName: 'Bé Kẹo Bom Khổng Lồ (Tự Nổ 💥)',
+    hp: 1400, speed: 0.09, damage: 180, score: 650, color: '#ef4444', isExploder: true, explosionDamage: 320,
+    desc: '💥 [SKILL TỰ NỔ]: Mang khối thuốc nổ kẹo dẻo, khi chết tự nổ hủy diệt 320 DMG!'
+  },
+  SHADOW_STALKER: {
+    id: 'SHADOW_STALKER', name: 'Bé Mèo Đen Bóng Đêm Cuti', vietName: 'Bé Mèo Đen Bóng Đêm (Tốc Độ ⚡)',
+    hp: 450, speed: 0.36, damage: 130, score: 450, color: '#312e81', isFast: true,
+    desc: '⚡ [SKILL TỐC ĐỘ]: Lướt bóng đêm siêu tốc, thoắt ẩn thoắt hiện!'
   },
   ARMORED_CYBER_CRUSHER: {
     id: 'ARMORED_CYBER_CRUSHER', name: 'Bé Xe Tăng Kẹo Ngọt Mini', vietName: 'Bé Xe Tăng Kẹo Ngọt Mini',
-    hp: 3400, speed: 0.15, damage: 300, score: 750, color: '#f43f5e', armorReduction: 0.5,
-    desc: 'Bé xe tăng đồ chơi bánh xích rực rỡ với giáp kẹo siêu bền!'
+    hp: 2000, speed: 0.07, damage: 220, score: 750, color: '#f43f5e', armorReduction: 0.5,
+    desc: 'Bé xe tăng đồ chơi bánh xích lăn chậm rãi với giáp kẹo siêu bền!'
   },
   TROJAN_HORSE_CARRIER: {
     id: 'TROJAN_HORSE_CARRIER', name: 'Bé Kỳ Lân Unicorn Cầu Vồng', vietName: 'Bé Kỳ Lân Unicorn Cầu Vồng',
-    hp: 3000, speed: 0.18, damage: 240, score: 700, color: '#facc15', isCarrier: true,
-    desc: 'Bé kỳ lân gỗ bập bênh chở theo 3 bé sâu slime nhỏ!'
+    hp: 1800, speed: 0.09, damage: 160, score: 700, color: '#facc15', isCarrier: true,
+    desc: 'Bé kỳ lân bập bênh chậm rãi chở theo 3 bé bọ slime nhỏ!'
   },
   ZERO_DAY_EXPLOIT: {
-    id: 'ZERO_DAY_EXPLOIT', name: 'Bé Tiên Tử Sao Dịch Chuyển', vietName: 'Bé Tiên Tử Sao Dịch Chuyển',
-    hp: 1700, speed: 0.35, damage: 160, score: 500, color: '#ec4899', isPhaser: true,
-    desc: 'Bé tiên cánh bướm sao dịch chuyển tức thời 65px sau mỗi 4 giây!'
+    id: 'ZERO_DAY_EXPLOIT', name: 'Bé Tiên Tử Sao Dịch Chuyển', vietName: 'Bé Tiên Tử Sao Dịch Chuyển (Biến Ảo ✨)',
+    hp: 950, speed: 0.12, damage: 120, score: 500, color: '#ec4899', isPhaser: true,
+    desc: '✨ [SKILL DỊCH CHUYỂN]: Nhấp nháy dịch chuyển tức thời 65px sau mỗi 4 giây!'
   },
   QUANTUM_SINGULARITY_CORE: {
     id: 'QUANTUM_SINGULARITY_CORE', name: 'Bé Cầu Pha Lê Kẹo Xoáy', vietName: 'Bé Cầu Pha Lê Kẹo Xoáy',
-    hp: 5200, speed: 0.14, damage: 350, score: 950, color: '#38bdf8',
-    desc: 'Quả cầu pha lê kẹo xoay tròn rực rỡ tích tụ năng lượng sao!'
+    hp: 2500, speed: 0.07, damage: 220, score: 950, color: '#38bdf8',
+    desc: 'Quả cầu pha lê xoay tròn trôi lững lờ tích tụ năng lượng sao!'
   },
   DDOS_OVERLORD: {
     id: 'DDOS_OVERLORD', name: 'Bé Vua Slime Khổng Lồ', vietName: 'Bé Vua Slime Khổng Lồ (Boss W1)',
-    hp: 3800, speed: 0.18, damage: 300, score: 1000, color: '#ff5d8f', isBoss: true,
-    desc: 'Bé Vua Slime tròn xoe khổng lồ đội vương miện vàng, má phúng phính!'
+    hp: 2400, speed: 0.08, damage: 200, score: 1000, color: '#ff5d8f', isBoss: true,
+    desc: 'Bé Vua Slime khổng lồ bước đi chậm rãi oai vệ, má phúng phính!'
   },
   BOTNET_COMMANDER: {
     id: 'BOTNET_COMMANDER', name: 'Bé Hoàng Tử Bạch Tuộc', vietName: 'Hoàng Tử Bạch Tuộc (Boss W2)',
-    hp: 6800, speed: 0.16, damage: 400, score: 1500, color: '#c084fc', isBoss: true,
-    desc: 'Bé hoàng tử bạch tuộc đội vương miện sao, mang khiên và triệu hồi quái con!'
+    hp: 4200, speed: 0.07, damage: 260, score: 1500, color: '#c084fc', isBoss: true,
+    desc: 'Bé hoàng tử bạch tuộc trôi chậm, mang khiên và triệu hồi quái con!'
   },
   QUANTUM_LEVIATHAN: {
     id: 'QUANTUM_LEVIATHAN', name: 'Bé Rồng Biển Xanh Mộng Mơ', vietName: 'Bé Rồng Biển Xanh (Super Boss)',
-    hp: 12000, speed: 0.13, damage: 550, score: 2200, color: '#38bdf8', isSuperBoss: true,
-    desc: 'Bé rồng biển uốn lượn bồng bềnh với đôi mắt long lanh và vây cá phát sáng!'
+    hp: 7500, speed: 0.06, damage: 350, score: 2200, color: '#38bdf8', isSuperBoss: true,
+    desc: 'Bé rồng biển uốn lượn bồng bềnh cực chậm với đôi mắt long lanh!'
   },
   NEURAL_OVERDRIVE_MEGABOSS: {
     id: 'NEURAL_OVERDRIVE_MEGABOSS', name: 'Bé Mèo Thần Vũ Trụ Tối Thượng', vietName: 'Bé Mèo Vũ Trụ Apex (Mega Boss Màn 40)',
-    hp: 20000, speed: 0.11, damage: 750, score: 3000, color: '#ec4899', isMegaBoss: true,
-    desc: 'Bé Mèo Thần tối thượng với 4 quả cầu kẹo ma thuật xoay quanh, vương miện sao!'
+    hp: 12000, speed: 0.05, damage: 450, score: 3000, color: '#ec4899', isMegaBoss: true,
+    desc: 'Bé Mèo Thần tối thượng trôi lơ lửng uy nghiêm với 4 quả cầu ma thuật!'
   }
 };
 
@@ -1223,10 +1233,21 @@ class VirusEnemy {
     if (this.type === 'GLITCH_SPRINTER' && !this.hasJumped && collidingUnit) {
       this.hasJumped = true;
       this.x -= 70;
-      this.speed = 0.35;
+      this.speed = 0.16;
       gameState.spawnGlitchParticles(this.x + 35, this.y, '#38bdf8');
       window.cyberAudio.playLaser(1200, 0.2);
       return;
+    }
+
+    if (this.type === 'SHADOW_STALKER') {
+      this.shadowDashTimer = (this.shadowDashTimer || 0) + dt;
+      if (this.shadowDashTimer >= 3.0 && !collidingUnit) {
+        this.shadowDashTimer = 0;
+        this.x -= 38;
+        gameState.spawnGlitchParticles(this.x + 20, this.y, '#c084fc');
+        gameState.spawnLaserSpark(this.x, this.y, '#38bdf8');
+        gameState.spawnFloatingText(this.x, this.y - 18, '⚡ LƯỚT BÓNG ĐÊM!', '#c084fc');
+      }
     }
 
     if (this.type === 'DDOS_OVERLORD' && !this.miniSpawned && this.hp <= this.maxHp * 0.5) {
@@ -1294,6 +1315,20 @@ class VirusEnemy {
     window.cyberAudio.playHit();
 
     if (this.hp <= 0) {
+      // Self-destruct explosion on death
+      if (this.config.isExploder) {
+        const explodeDmg = this.config.explosionDamage || 250;
+        gameState.units.forEach(u => {
+          if (u.row === this.row && Math.abs(u.x - this.x) <= this.grid.cellW * 1.35 && u.hp > 0) {
+            u.takeDamage(explodeDmg);
+          }
+        });
+        window.cyberAudio.playExplosion();
+        gameState.spawnGlitchParticles(this.x, this.y, '#f43f5e');
+        gameState.spawnLaserSpark(this.x, this.y, '#fbbf24');
+        gameState.spawnFloatingText(this.x, this.y - 22, '💥 TỰ NỔ HẾT MÁU! 💥', '#ef4444');
+      }
+
       if (this.config.isSplitter) {
         for (let s = 0; s < 2; s++) {
           const child = new VirusEnemy('TROJAN_BUG', this.row, this.grid);
@@ -1335,8 +1370,44 @@ class VirusEnemy {
       ctx.shadowBlur = 12;
     }
 
+    // Speed Trail / Wind Streaks for fast monsters
+    if (this.config.isFast && !this.isAttacking) {
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+      ctx.lineWidth = 1.5;
+      const tOff = (this.animTime * 15) % 12;
+      [ -6, 0, 6 ].forEach((yo, idx) => {
+        ctx.beginPath();
+        ctx.moveTo(18 + tOff + idx * 4, yo);
+        ctx.lineTo(28 + tOff + idx * 4, yo);
+        ctx.stroke();
+      });
+    }
+
+    // Bomb Aura for exploder monsters
+    if (this.config.isExploder) {
+      const pulse = 0.5 + Math.sin(this.animTime * 8) * 0.5;
+      ctx.fillStyle = `rgba(239, 68, 68, ${0.2 * pulse})`;
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius + 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
     // DRAW SLIME SPRITE
     this.drawSlimeSprite(ctx, hitFlash);
+
+    // Exploder Bomb Badge
+    if (this.config.isExploder) {
+      ctx.font = '12px "Outfit", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('💣', 0, -22);
+    }
+
+    // Fast Runner Lightning Badge
+    if (this.config.isFast) {
+      ctx.font = '11px "Outfit", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('⚡', 12, -18);
+    }
 
     // Health Bar
     if (this.hp < this.maxHp || this.config.isBoss || this.config.isSuperBoss || this.config.isMegaBoss) {
