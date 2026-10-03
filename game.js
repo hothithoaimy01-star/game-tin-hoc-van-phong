@@ -304,6 +304,39 @@ class CyberGame {
     requestAnimationFrame((t) => this.gameLoop(t));
   }
 
+  resizeCanvas() {
+    const wrapper = document.getElementById('canvas-wrapper');
+    if (!wrapper) return;
+    const w = wrapper.clientWidth || window.innerWidth;
+    const h = wrapper.clientHeight || (window.innerHeight - 90);
+
+    this.canvas.width = w;
+    this.canvas.height = h;
+
+    // Dynamically calculate grid cell size for all screen sizes (mobile portrait/landscape & desktop)
+    const marginRatio = w < 600 ? 0.08 : w < 900 ? 0.12 : 0.15;
+    const availableW = Math.max(260, w * (1 - marginRatio));
+    const availableH = Math.max(180, h - (w < 600 ? 15 : 30));
+
+    const maxCellW = Math.floor(availableW / (this.grid.cols + 0.8));
+    const maxCellH = Math.floor(availableH / this.grid.rows);
+    const cellSize = Math.max(28, Math.min(maxCellW, maxCellH, 84));
+
+    this.grid.cellW = cellSize;
+    this.grid.cellH = cellSize;
+    this.grid.startX = Math.max(Math.floor(cellSize * 0.9), Math.floor((w - this.grid.cellW * this.grid.cols) / 2) + Math.floor(cellSize * 0.35));
+    this.grid.startY = Math.max(6, Math.floor((h - this.grid.cellH * this.grid.rows) / 2));
+
+    this.units.forEach(u => {
+      u.x = this.grid.startX + u.col * this.grid.cellW + this.grid.cellW / 2;
+      u.y = this.grid.startY + u.row * this.grid.cellH + this.grid.cellH / 2;
+    });
+    this.scanners.forEach(s => {
+      s.x = this.grid.startX - this.grid.cellW * 0.65;
+      s.y = this.grid.startY + s.row * this.grid.cellH + this.grid.cellH / 2;
+    });
+  }
+
   loadActiveAccount() {
     const activeEmail = localStorage.getItem('cyber_active_email') || '';
     if (activeEmail) {
