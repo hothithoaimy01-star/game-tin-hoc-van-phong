@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Văn Phòng Kỳ Hiệp - Office Legend 2D RPG</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="game-app">
+    <!-- Top Navigation / HUD Bar -->
+    <header id="hud-header">
+      <div class="hud-left">
+        <div class="profile-card">
+          <div class="avatar-badge" id="hud-avatar">👨‍💼</div>
+          <div class="profile-info">
+            <div class="name-rank">
+              <span id="player-name">Thực Tập Sinh</span>
+              <span class="rank-badge" id="player-title">Level 1: Intern</span>
+            </div>
+            <div class="exp-bar-container">
+              <div class="exp-bar-fill" id="exp-bar" style="width: 10%;"></div>
+              <span class="exp-text" id="exp-text">EXP: 0 / 100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-center">
+        <div class="quest-tracker">
+          <span class="quest-icon">🎯</span>
+          <div class="quest-details">
+            <div class="quest-title" id="current-quest-title">Nhiệm vụ: Chào hỏi Sếp & Làm quen bàn phím</div>
+            <div class="quest-desc" id="current-quest-desc">Dùng phím W, A, S, D để di chuyển đến bàn Trưởng Phòng Tuấn.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <div class="stat-pill">
+          <span class="icon">☕</span>
+          <div class="stat-meta">
+            <span class="label">Năng Lượng</span>
+            <span class="val" id="energy-val">100%</span>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <span class="icon">💰</span>
+          <div class="stat-meta">
+            <span class="label">Lương Thưởng</span>
+            <span class="val" id="coins-val">0 ₫</span>
+          </div>
+        </div>
+        <div class="hud-buttons">
+          <button id="btn-codex" class="hud-btn" title="Sổ tay Tin Học"><span class="btn-icon">📖</span> Bí Kíp</button>
+          <button id="btn-shop" class="hud-btn" title="Cửa hàng"><span class="btn-icon">🛒</span> Shop</button>
+          <button id="btn-sound" class="hud-btn" title="Bật/Tắt Âm thanh"><span class="btn-icon">🔊</span></button>
+          <button id="btn-help" class="hud-btn" title="Hướng dẫn"><span class="btn-icon">❓</span></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Game Viewport -->
+    <main id="game-container">
+      <canvas id="game-canvas" width="1024" height="600"></canvas>
+
+      <!-- Floating Controls / Direction Pad for Mobile/Touch -->
+      <div id="touch-controls">
+        <div class="dpad-btn up" data-key="ArrowUp">▲</div>
+        <div class="dpad-row">
+          <div class="dpad-btn left" data-key="ArrowLeft">◀</div>
+          <div class="dpad-btn center">🕹️</div>
+          <div class="dpad-btn right" data-key="ArrowRight">▶</div>
+        </div>
+        <div class="dpad-btn down" data-key="ArrowDown">▼</div>
+      </div>
+
+      <!-- Action Prompt / Interaction Bubble -->
+      <div id="interaction-bubble" class="hidden">
+        <span class="key-badge">E</span> hoặc <span class="click-hint">Chạm</span>: Nói chuyện
+      </div>
+
+      <!-- Dialogue Modal Box -->
+      <div id="dialogue-box" class="hidden">
+        <div class="dialogue-speaker">
+          <div class="speaker-avatar" id="speaker-avatar">🧑‍💼</div>
+          <div class="speaker-info">
+            <div class="speaker-name" id="speaker-name">Sếp Tuấn</div>
+            <div class="speaker-role" id="speaker-role">Trưởng phòng Nhân sự</div>
+          </div>
+        </div>
+        <div class="dialogue-content">
+          <p id="dialogue-text">Chào mừng cậu đến với tập đoàn TechCorp! Trước tiên hãy chứng minh cậu thành thạo phím tắt soạn thảo nhé.</p>
+        </div>
+        <div class="dialogue-actions" id="dialogue-actions">
+          <button class="game-btn primary" id="btn-dialogue-action">Nhận Nhiệm Vụ 🚀</button>
+        </div>
+      </div>
+
+      <!-- Mini-Game: Phím Tắt Thần Tốc (Typing & Shortcut Battle) -->
+      <div id="modal-shortcut-game" class="game-modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-purple">Phím Tắt Siêu Tốc</span>
+              <h2>⚔️ Tiêu Diệt Quái Vật Deadline</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeMiniGame()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="battle-arena">
+              <div class="enemy-card">
+                <div class="enemy-sprite" id="shortcut-enemy-icon">👾</div>
+                <div class="enemy-info">
+                  <div class="enemy-name" id="shortcut-enemy-name">Quái Vật Báo Cáo Trễ</div>
+                  <div class="hp-bar-bg"><div class="hp-bar-fill" id="enemy-hp" style="width: 100%;"></div></div>
+                </div>
+              </div>
+              <div class="shortcut-challenge">
+                <div class="challenge-question" id="shortcut-question">Hành động: <strong>Sao chép nội dung (Copy)</strong></div>
+                <div class="shortcut-keys-needed" id="shortcut-expected-keys">Nhấn phím: <kbd>Ctrl</kbd> + <kbd>C</kbd></div>
+                <div class="shortcut-hint" id="shortcut-hint">Gợi ý: Dùng để copy chữ hoặc file vào bộ nhớ đệm.</div>
+                <div class="keyboard-visualizer" id="keyboard-visualizer">
+                  <span class="active-key" id="last-pressed-key">Đang chờ bạn nhấn phím...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="score-display">Tiến độ: <span id="shortcut-score">0 / 5</span></div>
+            <div class="timer-display">⏱️ Thời gian: <span id="shortcut-timer">30s</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini-Game: Phòng Thí Nghiệm Excel (Interactive Spreadsheet Lab) -->
+      <div id="modal-excel-game" class="game-modal hidden">
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-green">Bảng Tính Excel Siêu Cấp</span>
+              <h2 id="excel-mission-title">📊 Xử Lý Báo Cáo Doanh Thu Bằng Hàm Excel</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeMiniGame()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="excel-briefing" id="excel-briefing">
+              Yêu cầu: Viết công thức tính <strong>Tổng Doanh Thu</strong> của các nhân viên từ ô B2 đến B6 tại ô B7.
+            </div>
+
+            <!-- Fake Excel Grid -->
+            <div class="excel-formula-bar">
+              <span class="fx-label">fx</span>
+              <input type="text" id="excel-formula-input" placeholder="Nhập công thức, ví dụ: =SUM(B2:B6) rồi nhấn Enter..." autocomplete="off">
+              <button class="game-btn primary sm" id="btn-submit-formula">Áp Dụng (Enter)</button>
+            </div>
+
+            <div class="excel-table-container">
+              <table class="excel-table" id="excel-table">
+                <!-- Dynamically generated Excel Grid -->
+              </table>
+            </div>
+
+            <div class="excel-feedback" id="excel-feedback"></div>
+
+            <div class="excel-formula-hints">
+              <div class="hints-title">💡 Gợi ý hàm hữu ích cho màn này:</div>
+              <div class="hints-list" id="excel-hints-list">
+                <code>=SUM(phạm_vi)</code>: Tính tổng | <code>=AVERAGE(phạm_vi)</code>: Tính trung bình | <code>=IF(điều_kiện, đúng, sai)</code>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="game-btn outline" id="btn-excel-hint">Xem Giải Thích Công Thức 💡</button>
+            <button class="game-btn success" id="btn-excel-next-task" disabled>Nộp Báo Cáo Cho Sếp ✅</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini-Game: Soạn Thảo Word Chuẩn Thể Thức -->
+      <div id="modal-word-game" class="game-modal hidden">
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-blue">Văn Phòng Soạn Thảo Word</span>
+              <h2>📝 Chuẩn Hóa Tờ Trình & Hợp Đồng Công Ty</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeMiniGame()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="word-challenge-desc" id="word-challenge-desc">
+              Tài liệu gửi khách hàng đang bị sai định dạng. Hãy dùng các công cụ thanh Toolbar hoặc phím tắt để định dạng lại đúng yêu cầu!
+            </div>
+            
+            <!-- Toolbar -->
+            <div class="word-toolbar">
+              <button class="tool-btn" data-action="bold" title="Ctrl + B (In đậm)"><b>B</b></button>
+              <button class="tool-btn" data-action="italic" title="Ctrl + I (In nghiêng)"><i>I</i></button>
+              <button class="tool-btn" data-action="underline" title="Ctrl + U (Gạch chân)"><u>U</u></button>
+              <span class="divider"></span>
+              <button class="tool-btn" data-action="align-left" title="Ctrl + L (Căn trái)">⬅️ Trái</button>
+              <button class="tool-btn" data-action="align-center" title="Ctrl + E (Căn giữa)">⏺️ Giữa</button>
+              <button class="tool-btn" data-action="align-right" title="Ctrl + R (Căn phải)">➡️ Phải</button>
+              <button class="tool-btn" data-action="align-justify" title="Ctrl + J (Căn đều 2 bên)">↔️ Căn đều</button>
+              <span class="divider"></span>
+              <select id="word-font-size" class="tool-select">
+                <option value="12">12pt</option>
+                <option value="13" selected>13pt (Nghị định 30)</option>
+                <option value="14">14pt</option>
+                <option value="16">16pt (Tiêu đề)</option>
+              </select>
+              <select id="word-font-family" class="tool-select">
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Arial">Arial</option>
+                <option value="Calibri">Calibri</option>
+              </select>
+            </div>
+
+            <!-- Word Preview Paper -->
+            <div class="word-paper-container">
+              <div class="word-paper" id="word-doc-content" contenteditable="false">
+                <!-- Word document content rendered here -->
+              </div>
+            </div>
+
+            <!-- Target Checklist -->
+            <div class="word-checklist">
+              <div class="checklist-title">📋 Tiêu chuẩn cần đạt:</div>
+              <ul id="word-checklist-items">
+                <!-- Checkpoints -->
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="game-btn primary" id="btn-word-verify">Kiểm Tra Định Dạng 🔍</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini-Game: Bậc Thầy Thuyết Trình PowerPoint -->
+      <div id="modal-ppt-game" class="game-modal hidden">
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-orange">Thuyết Trình PowerPoint</span>
+              <h2>📽️ Trình Diễn Báo Cáo Trước Ban Giám Đốc</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeMiniGame()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="ppt-stage">
+              <div class="ppt-slide-viewer" id="ppt-slide-viewer">
+                <div class="slide-content" id="ppt-slide-content">
+                  <!-- Dynamic Slide Display -->
+                </div>
+              </div>
+              <div class="ppt-quiz-panel">
+                <div class="ppt-situation-badge">Tình huống thuyết trình</div>
+                <div class="ppt-question" id="ppt-question">Đang đứng trước Ban giám đốc, bạn cần mở trình chiếu toàn màn hình từ đầu slide, phím tắt là gì?</div>
+                <div class="ppt-options" id="ppt-options">
+                  <!-- Option Buttons -->
+                </div>
+                <div class="ppt-feedback" id="ppt-feedback"></div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="ppt-progress">Tiến độ: <span id="ppt-current-step">1/4</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sổ Tay Bí Kíp Tin Học (Codex Modal) -->
+      <div id="modal-codex" class="game-modal hidden">
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-purple">Bách Khoa Toàn Thư</span>
+              <h2>📖 Sổ Tay Bí Kíp Tin Học Văn Phòng</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeCodex()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="codex-layout">
+              <div class="codex-tabs">
+                <button class="codex-tab active" data-tab="shortcuts">⌨️ Phím Tắt Thần Thánh</button>
+                <button class="codex-tab" data-tab="excel">📊 Công Thức Excel Vàng</button>
+                <button class="codex-tab" data-tab="word">📝 Chuẩn Thể Thức Word</button>
+                <button class="codex-tab" data-tab="ppt">📽️ Mẹo Thuyết Trình PPT</button>
+                <button class="codex-tab" data-tab="tips">💡 Kỹ Năng Công Sở Số</button>
+              </div>
+              <div class="codex-content" id="codex-content-body">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cửa Hàng Trang Bị (Shop Modal) -->
+      <div id="modal-shop" class="game-modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span class="tag tag-gold">Cửa Hàng Văn Phòng</span>
+              <h2>🛒 Căng Tin & Trang Bị Tối Thượng</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeShop()">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="shop-grid" id="shop-items-grid">
+              <!-- Shop Items injected -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Level Up / Promotion Celebration Modal -->
+      <div id="modal-promotion" class="game-modal hidden">
+        <div class="modal-card modal-celebrate">
+          <div class="confetti-container" id="confetti-holder"></div>
+          <div class="celebrate-badge">🎉 CHÚC MỪNG THĂNG CHỨC! 🎉</div>
+          <h2 id="promo-rank-title">CHUYÊN VIÊN CHÍNH THỨC</h2>
+          <div class="promo-avatar" id="promo-avatar">🌟👨‍💼🌟</div>
+          <p id="promo-desc">Bạn đã hoàn thành xuất sắc các thử thách tin học văn phòng và được Ban Lãnh Đạo khen ngợi!</p>
+          <div class="promo-rewards">
+            <div class="reward-item">💰 Thưởng Lương: <span id="promo-reward-cash">+5,000,000 ₫</span></div>
+            <div class="reward-item">⭐ Mở Khóa: <span id="promo-reward-unlock">Kỹ năng Excel & Phòng Kế Toán</span></div>
+          </div>
+          <button class="game-btn primary lg" id="btn-claim-promotion">Tiếp Tục Sự Nghiệp 🚀</button>
+        </div>
+      </div>
+
+      <!-- Guide / Help Modal -->
+      <div id="modal-help" class="game-modal hidden">
+        <div class="modal-card">
+          <div class="modal-header">
+            <div class="modal-title">
+              <h2>🎮 Hướng Dẫn Chơi & Điều Khiển</h2>
+            </div>
+            <button class="modal-close" onclick="GameApp.closeHelp()">✕</button>
+          </div>
+          <div class="modal-body help-content">
+            <div class="help-section">
+              <h3>🕹️ Di Chuyển & Tương Tác</h3>
+              <p>• Dùng <b>W, A, S, D</b> hoặc các phím <b>Mũi Tên</b> (hoặc D-pad trên điện thoại) để di chuyển nhân vật.</p>
+              <p>• Đến gần các NPC (Sếp, Đồng nghiệp) hoặc bàn làm việc và nhấn <b>E</b> (hoặc click vào bong bóng) để nhận nhiệm vụ.</p>
+            </div>
+            <div class="help-section">
+              <h3>📚 Mục Tiêu Trò Chơi</h3>
+              <p>• Bắt đầu từ <b>Thực Tập Sinh</b>, giải quyết các sự cố Word, Excel, PowerPoint và phím tắt của công ty.</p>
+              <p>• Đạt đủ EXP và vượt qua các thử thách thực hành để thăng chức lên <b>Chuyên Viên, Trưởng Phòng, Giám Đốc và CEO</b>!</p>
+              <p>• Mở <b>Bí Kíp (📖)</b> để học hỏi và tra cứu lại mọi kiến thức bất kỳ lúc nào.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Toast Notifications -->
+    <div id="toast-container"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/minigames.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
