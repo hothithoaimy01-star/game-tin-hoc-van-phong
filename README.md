@@ -1,6 +1,9 @@
 # 🎃 HALLOWEEN NIGHT: Vườn Ma Bí Ngô vs Binh Đoàn Xác Sống Kinh Dị 👻
 
+> 🎮 **LINK CHƠI TRỰC TIẾP TRÊN WEB**: [https://hothithoaimy01-star.github.io/game-tin-hoc-van-phong/](https://hothithoaimy01-star.github.io/game-tin-hoc-van-phong/)
+
 Tựa game chiến thuật thủ thành thời gian thực 2D kinh điển với chủ đề **Halloween Horror & Cute Spooky** (Bí Ngô Ma Thuật, Phù Thủy, Xác Sống, Ma Cà Rồng & Binh Đoàn Quái Vật Đêm)!
+
 
 ---
 
