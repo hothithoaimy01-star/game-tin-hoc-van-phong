@@ -6,26 +6,30 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#1e1530">
-  <title>CYBER CUTIES: Bé Tháp Cute vs Biệt Đội Quái Slime</title>
+  <meta name="theme-color" content="#0d0818">
+  <title>🎃 HALLOWEEN NIGHT: Vườn Ma Bí Ngô vs Binh Đoàn Xác Sống Kinh Dị 👻</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Fredoka:wght@400;500;600;700&family=Nosifer&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <!-- Canvas Game Container -->
   <div id="game-app">
+    <!-- Halloween Fog & Spooky Atmosphere Overlay -->
+    <div class="spooky-fog-layer" aria-hidden="true"></div>
+    <div class="spooky-bats-layer" aria-hidden="true"></div>
+
     <!-- Top HUD / Card Deck & Energy -->
     <header id="top-bar">
-      <!-- Energy Meter -->
+      <!-- Energy Meter (Linh Hồn Bí Ngô) -->
       <div id="energy-bank">
         <div class="energy-icon-wrap">
           <div class="energy-pulse"></div>
-          <span class="energy-icon">⭐</span>
+          <span class="energy-icon">🎃</span>
         </div>
         <div class="energy-info">
-          <span class="energy-label">NĂNG LƯỢNG</span>
+          <span class="energy-label">LINH HỒN BÍ NGÔ</span>
           <span id="energy-count">250</span>
         </div>
       </div>
@@ -37,37 +41,37 @@
 
       <!-- Control Tools -->
       <div id="action-tools">
-        <button id="tool-shovel" class="hud-btn" title="Thu hồi bé tháp (Nhận lại năng lượng)">
-          <span class="btn-icon">🪄</span>
+        <button id="tool-shovel" class="hud-btn" title="Chổi ma thuật thu hồi bé tháp (Nhận lại linh hồn)">
+          <span class="btn-icon">🧹</span>
           <span class="btn-label">THU HỒI</span>
         </button>
-        <button id="tool-techlab" class="hud-btn highlight-lab" title="Phòng Thí Nghiệm Kẹo Ngọt Nâng Cấp">
-          <span class="btn-icon">🧪</span>
-          <span class="btn-label">NÂNG CẤP</span>
+        <button id="tool-techlab" class="hud-btn highlight-lab" title="Vạc Phù Thủy Ma Thuật Nâng Cấp">
+          <span class="btn-icon">🧙‍♀️</span>
+          <span class="btn-label">VẠC PHÉP</span>
         </button>
-        <button id="tool-map" class="hud-btn" title="Bản Đồ Thế Giới Mộng Mơ">
+        <button id="tool-map" class="hud-btn" title="Bản Đồ Vùng Đất Ma Ám">
           <span class="btn-icon">🗺️</span>
           <span class="btn-label">BẢN ĐỒ</span>
         </button>
-        <button id="tool-speed" class="hud-btn" title="Tăng tốc độ game">
+        <button id="tool-speed" class="hud-btn" title="Tăng tốc độ trận chiến">
           <span class="btn-icon">⚡</span>
           <span class="btn-label" id="speed-label">1x</span>
         </button>
-        <button id="tool-sound" class="hud-btn" title="Bật/Tắt âm thanh">
+        <button id="tool-sound" class="hud-btn" title="Bật/Tắt âm thanh ma mị">
           <span class="btn-icon" id="sound-icon">🔊</span>
         </button>
-        <button id="tool-pause" class="hud-btn" title="Tạm dừng">
+        <button id="tool-pause" class="hud-btn" title="Tạm dừng trận đấu">
           <span class="btn-icon">⏸️</span>
         </button>
-        <button id="tool-fullscreen" class="hud-btn" title="Toàn màn hình">
+        <button id="tool-fullscreen" class="hud-btn" title="Toàn màn hình kinh dị">
           <span class="btn-icon">⛶</span>
         </button>
-        <button id="tool-codex" class="hud-btn" title="Từ Điển Bé Cưng & Quái Slime">
-          <span class="btn-icon">📖</span>
+        <button id="tool-codex" class="hud-btn" title="Cổ Thư Quái Vật & Tháp Phù Thủy">
+          <span class="btn-icon">📜</span>
         </button>
-        <button id="tool-account" class="hud-btn highlight-user" title="Tài khoản người chơi & Lưu tiến trình">
-          <span class="btn-icon" id="hud-user-avatar">🐱</span>
-          <span class="btn-label" id="hud-user-name">TÀI KHOẢN</span>
+        <button id="tool-account" class="hud-btn highlight-user" title="Linh Hồn Phù Thủy & Lưu tiến trình">
+          <span class="btn-icon" id="hud-user-avatar">🎃</span>
+          <span class="btn-label" id="hud-user-name">PHÙ THỦY</span>
         </button>
       </div>
     </header>
@@ -79,20 +83,20 @@
       <!-- Bottom Progress Bar & Wave Indicator -->
       <div id="wave-hud">
         <div class="wave-info">
-          <span id="level-title">WORLD 1: DAYLIGHT - MISSION 01</span>
-          <span id="wave-status">WAVE 1 / 3</span>
+          <span id="level-title">ĐÊM 1: NGHĨA TRANG BÍ NGÔ - MÀN 01</span>
+          <span id="wave-status">ĐỢT QUÁI 1 / 3</span>
         </div>
         <div class="wave-bar-wrap">
           <div class="wave-progress" id="wave-progress-bar" style="width: 0%;"></div>
-          <div class="wave-head-indicator" id="wave-head">👾</div>
+          <div class="wave-head-indicator" id="wave-head">💀</div>
         </div>
       </div>
 
       <!-- Floating Alert Banner -->
       <div id="cyber-alert" class="hidden">
         <div class="alert-box">
-          <div class="alert-glitch" id="alert-glitch-text">WARNING!</div>
-          <div class="alert-sub" id="alert-sub-text">VIRUS INVASION DETECTED</div>
+          <div class="alert-glitch" id="alert-glitch-text">⚠️ NGUY HIỂM TỘT CÙNG! ⚠️</div>
+          <div class="alert-sub" id="alert-sub-text">BINH ĐOÀN XÁC SỐNG & QUÁI VẬT ĐANG TRÀN ĐẾN!</div>
         </div>
       </div>
     </main>
@@ -101,57 +105,62 @@
     <!-- Start & World Map Screen Modal -->
     <div id="start-modal" class="modal-overlay">
       <div class="modal-card world-select-card">
-        <div class="cyber-badge">💖 VƯƠNG QUỐC BÉ CƯNG • 40 MÀN CHƠI & 40 BÉ CÂY TRỒNG SIÊU CUTI 🌸</div>
-        <h1 class="glow-title">BÉ THÁP CUTE <span class="vs-text">VS</span> QUÁI SLIME</h1>
+        <div class="game-banner-container">
+          <img src="./assets/title_banner.jpg" alt="Halloween Night: Plants vs Zombie Monsters" class="game-title-banner-img" />
+          <div class="banner-overlay-text">
+            <div class="cyber-badge">🎃 HALLOWEEN HORROR • 40 THÁP PHÉP THUẬT & 25 QUÁI VẬT 👻</div>
+            <h1 class="glow-title">VƯỜN MA BÍ NGÔ <span class="vs-text">VS</span> XÁC SỐNG KINH DỊ</h1>
+          </div>
+        </div>
         
         <!-- User Profile Quick Login Banner -->
         <div class="user-profile-banner" id="btn-open-account-banner">
-          <div class="user-avatar-badge" id="banner-user-avatar">🐱</div>
+          <div class="user-avatar-badge" id="banner-user-avatar">🎃</div>
           <div class="user-info-text">
-            <div class="user-welcome">Xin chào, <strong id="banner-user-name">Bé Mèo Dễ Thương</strong> ✨</div>
-            <div class="user-email-tag" id="banner-user-email">Chưa đăng nhập email • Nhấn để lưu tiến trình</div>
+            <div class="user-welcome">Phù Thủy Chiêu Hồn: <strong id="banner-user-name">Bé Mèo Phù Thủy</strong> 🔮</div>
+            <div class="user-email-tag" id="banner-user-email">Chưa liên kết phong ấn email • Nhấn để lưu hồn phách</div>
           </div>
-          <button class="user-switch-btn" type="button">💌 ĐĂNG NHẬP / ĐỔI</button>
+          <button class="user-switch-btn" type="button">📜 PHONG ẤN / ĐỔI</button>
         </div>
 
         <div class="header-resources-bar">
           <div class="chips-display-banner">
-            <span>🍬 KẸO KIM CƯƠNG: <strong id="menu-chips-count">150</strong></span>
+            <span>🍬 KẸO HALLOWEEN MA QUÁI: <strong id="menu-chips-count">150</strong></span>
           </div>
           <div class="keys-display-banner">
-            <span>🗝️ KHÓA ĐÊM MỘNG MƠ: <strong id="night-key-badge" class="locked-badge">CHƯA MỞ</strong></span>
-            <span>🔑 KHÓA MÂY BỒNG BỀNH: <strong id="cloud-key-badge" class="locked-badge">CHƯA MỞ</strong></span>
+            <span>🗝️ CHÌA KHÓA LÂU ĐÀI DRACULA: <strong id="night-key-badge" class="locked-badge">PHONG ẤN</strong></span>
+            <span>🔑 CHÌA KHÓA ĐỊA NGỤC HƯ VÔ: <strong id="cloud-key-badge" class="locked-badge">PHONG ẤN</strong></span>
           </div>
         </div>
 
         <!-- World Selection Tabs -->
         <div class="world-tabs">
           <button class="world-tab active" data-world="day">
-            <span class="w-icon">🌻</span>
+            <span class="w-icon">🎃</span>
             <div class="w-info">
-              <span class="w-title">THẾ GIỚI 1: THẢO NGUYÊN NẮNG ẤM</span>
-              <span class="w-sub">10 Màn • Ngôi sao năng lượng rơi tự do ✨</span>
+              <span class="w-title">THẾ GIỚI 1: NGHĨA TRANG BÍ NGÔ MA ÁM</span>
+              <span class="w-sub">10 Màn • Linh hồn ma trôi tự do trong sương mù 👻</span>
             </div>
           </button>
           <button class="world-tab locked" data-world="night" id="tab-world-night">
-            <span class="w-icon">🌙</span>
+            <span class="w-icon">🏰</span>
             <div class="w-info">
-              <span class="w-title">THẾ GIỚI 2: RỪNG SAO ĐÊM MỘNG MƠ</span>
-              <span class="w-sub">10 Màn • Cần Khóa Đêm 🗝️</span>
+              <span class="w-title">THẾ GIỚI 2: LÂU ĐÀI DRACULA & RỪNG MA CÀ RỒNG</span>
+              <span class="w-sub">10 Màn • Cần Chìa Khóa Lâu Đài 🗝️</span>
             </div>
           </button>
           <button class="world-tab locked" data-world="cloud" id="tab-world-cloud">
-            <span class="w-icon">☁️</span>
+            <span class="w-icon">🩸</span>
             <div class="w-info">
-              <span class="w-title">THẾ GIỚI 3: KẸO BÔNG TRÊN MÂY</span>
-              <span class="w-sub">20 Màn • Cần Khóa Mây 🔑</span>
+              <span class="w-title">THẾ GIỚI 3: ĐỊA NGỤC MÁU & HƯ VÔ HẮC ÁM</span>
+              <span class="w-sub">20 Màn • Cần Chìa Khóa Hư Vô 🔑</span>
             </div>
           </button>
         </div>
 
         <!-- Mission Grid for Active World -->
         <div class="world-level-container">
-          <h3 id="world-current-title">DANH SÁCH MÀN CHƠI - THẾ GIỚI 1: THẢO NGUYÊN NẮNG ẤM</h3>
+          <h3 id="world-current-title">CÁC CỬA ẢI - THẾ GIỚI 1: NGHĨA TRANG BÍ NGÔ MA ÁM</h3>
           <div class="level-select-grid" id="levels-grid">
             <!-- Injected via JS -->
           </div>
@@ -160,10 +169,10 @@
         <div class="start-actions">
           <button id="btn-start-game" class="cyber-btn primary">
             <span class="btn-glitch"></span>
-            💖 VÀO TRẬN CHIẾN NGAY
+            🎃 BƯỚC VÀO ĐÊM KINH HOÀNG
           </button>
-          <button id="btn-open-techlab" class="cyber-btn warning">🧪 PHÒNG NÂNG CẤP KẸO</button>
-          <button id="btn-open-howtoplay" class="cyber-btn secondary">🎀 HƯỚNG DẪN CHƠI</button>
+          <button id="btn-open-techlab" class="cyber-btn warning">🧙‍♀️ VẠC PHÙ THỦY NÂNG CẤP</button>
+          <button id="btn-open-howtoplay" class="cyber-btn secondary">📜 BÍ KÍP TRỪ TÀ</button>
         </div>
       </div>
     </div>
@@ -172,15 +181,15 @@
     <div id="seed-modal" class="modal-overlay hidden">
       <div class="modal-card seed-select-card">
         <div class="seed-header">
-          <div class="cyber-badge">🌱 CHỌN ĐỘI HÌNH BÉ CÂY TRỒNG (TỐI ĐA 8 BÉ) ✨</div>
-          <h2 class="glow-title" id="seed-modal-level-title" style="font-size: 24px; margin-bottom: 6px;">MÀN 01: THẢO NGUYÊN NẮNG ẤM</h2>
+          <div class="cyber-badge">🔮 TRIỆU HỒI BÉ THÁP MA THUẬT (TỐI ĐA 8 BÉ) ✨</div>
+          <h2 class="glow-title" id="seed-modal-level-title" style="font-size: 24px; margin-bottom: 6px;">MÀN 01: NGHĨA TRANG BÍ NGÔ</h2>
         </div>
 
         <!-- Selected Deck Bar -->
         <div class="seed-chosen-section">
           <div class="section-title">
-            <span>🎒 ĐỘI HÌNH ĐÃ CHỌN (<strong id="seed-selected-count">2</strong>/8 BÉ CÂY):</span>
-            <span class="seed-tip">Nhấn thẻ bài để thêm hoặc gỡ khỏi đội hình</span>
+            <span>🎒 ĐỘI HÌNH PHÉP THUẬT ĐÃ CHỌN (<strong id="seed-selected-count">2</strong>/8 BÉ THÁP):</span>
+            <span class="seed-tip">Nhấn thẻ bài để phong ấn / triệu hồi vào trận</span>
           </div>
           <div class="seed-chosen-deck" id="seed-chosen-deck">
             <!-- Injected via JS -->
@@ -190,7 +199,7 @@
         <div class="seed-main-layout">
           <!-- Available Plants Grid -->
           <div class="seed-pool-section">
-            <div class="section-title">🌸 KHO BÉ CÂY TRỒNG ĐÃ MỞ KHÓA:</div>
+            <div class="section-title">🎃 KHO THÁP MA THUẬT ĐÃ KHAI MỞ:</div>
             <div class="seed-pool-grid" id="seed-pool-grid">
               <!-- Injected via JS -->
             </div>
@@ -198,7 +207,7 @@
 
           <!-- Preview Level Slime Monsters -->
           <div class="seed-monsters-preview">
-            <div class="section-title">👾 QUÁI SLIME Ở MÀN NÀY:</div>
+            <div class="section-title">💀 QUÁI VẬT & XÁC SỐNG XUẤT HIỆN:</div>
             <div class="seed-monsters-list" id="seed-monsters-list">
               <!-- Injected via JS -->
             </div>
@@ -206,9 +215,9 @@
         </div>
 
         <div class="start-actions" style="margin-top: 18px;">
-          <button id="btn-start-battle" class="cyber-btn primary">💖 BẮT ĐẦU TRẬN ĐẤU</button>
-          <button id="btn-auto-select-deck" class="cyber-btn warning">⚡ TỰ ĐỘNG CHỌN NHANH</button>
-          <button id="btn-close-seed-modal" class="cyber-btn secondary">🏠 BẢN ĐỒ</button>
+          <button id="btn-start-battle" class="cyber-btn primary">🔥 KHAI HỎA TRẬN CHIẾN</button>
+          <button id="btn-auto-select-deck" class="cyber-btn warning">⚡ TRIỆU HỒI NHANH</button>
+          <button id="btn-close-seed-modal" class="cyber-btn secondary">🗺️ BẢN ĐỒ MA ÁM</button>
         </div>
       </div>
     </div>
@@ -216,14 +225,14 @@
     <!-- NEW UNIT UNLOCKED REWARD MODAL -->
     <div id="unlock-modal" class="modal-overlay hidden">
       <div class="modal-card unlock-card">
-        <div class="unlock-glow-header">✨ WOAH! BẠN VỪA NHẬN ĐƯỢC BÉ THÁP SIÊU CUTI MỚI! ✨</div>
+        <div class="unlock-glow-header">✨ WOAH! BẠN VỪA GIẢI PHÓNG MỘT BÉ THÁP MA THUẬT MỚI! ✨</div>
         <div class="unlock-avatar-box">
           <canvas id="unlock-canvas" width="90" height="90"></canvas>
         </div>
-        <h2 id="unlock-unit-name" class="glow-title" style="color: #ff70a6; margin-bottom: 4px;">BÉ MÈO LASER PLASMA</h2>
-        <div id="unlock-unit-stats" class="unlock-stats-badge">Chi phí: 100⭐ | Hồi chiêu: 6s</div>
-        <p id="unlock-unit-desc" class="subtitle" style="margin: 14px 0 20px 0;">Bé Mèo bắn tia kẹo năng lượng lấp lánh bảo vệ các bạn nhỏ siêu đáng yêu!</p>
-        <button id="btn-unlock-ok" class="cyber-btn primary center-btn">💖 ĐƯA BÉ VÀO ĐỘI HÌNH BẢO VỆ</button>
+        <h2 id="unlock-unit-name" class="glow-title" style="color: #ff9e00; margin-bottom: 4px;">MÈO PHÙ THỦY HẮC ÁM</h2>
+        <div id="unlock-unit-stats" class="unlock-stats-badge">Linh Hồn: 100🎃 | Hồi chiêu: 5s</div>
+        <p id="unlock-unit-desc" class="subtitle" style="margin: 14px 0 20px 0;">Bé Mèo Phù Thủy đeo nón ma bắn tia lửa tím thiêu rụi bầy xác sống kinh dị!</p>
+        <button id="btn-unlock-ok" class="cyber-btn primary center-btn">🎃 THU NẠP VÀO ĐỘI HÌNH MA PHÁP</button>
       </div>
     </div>
 
@@ -231,12 +240,12 @@
     <div id="techlab-modal" class="modal-overlay hidden">
       <div class="modal-card codex-card">
         <div class="codex-header">
-          <h2>🧪 PHÒNG THÍ NGHIỆM KẸO NGỌT NÂNG CẤP BÉ CƯNG</h2>
+          <h2>🧙‍♀️ VẠC PHÙ THỦY MA THUẬT: NÂNG CẤP BÉ THÁP</h2>
           <button id="btn-close-techlab" class="close-x">✕</button>
         </div>
         
         <div class="chips-display-banner">
-          <span>🍬 KẸO KIM CƯƠNG KHẢ DỤNG: <strong id="lab-chips-count">150</strong></span>
+          <span>🍬 KẸO MA QUÁI KHẢ DỤNG: <strong id="lab-chips-count">150</strong></span>
         </div>
 
         <div class="upgrades-grid" id="upgrades-container">
@@ -244,7 +253,7 @@
         </div>
 
         <div class="modal-buttons" style="margin-top: 20px;">
-          <button id="btn-close-techlab-ok" class="cyber-btn primary">💖 ĐÃ LƯU & QUAY LẠI</button>
+          <button id="btn-close-techlab-ok" class="cyber-btn primary">🎃 PHONG ẤN & QUAY LẠI</button>
         </div>
       </div>
     </div>
@@ -253,43 +262,43 @@
     <div id="key-modal" class="modal-overlay hidden">
       <div class="modal-card key-drop-card">
         <div class="key-drop-icon" id="key-modal-icon">🗝️</div>
-        <h2 class="glow-title" id="key-modal-title">NHẬN ĐƯỢC CHÌA KHÓA MỘNG MƠ!</h2>
-        <p class="subtitle" id="key-modal-desc">Bạn vừa đánh bại bé Trùm và nhận được Chìa Khóa Mộng Mơ để mở cánh cổng Thế Giới Mới!</p>
-        <button id="btn-key-modal-ok" class="cyber-btn success">✨ MỞ KHÓA THẾ GIỚI MỚI NGAY</button>
+        <h2 class="glow-title" id="key-modal-title">CHIẾN LỢI PHẨM: CHÌA KHÓA HẮC ÁM!</h2>
+        <p class="subtitle" id="key-modal-desc">Bạn vừa tiêu diệt Trùm Quái Vật và nhận được Chìa Khóa mở cổng tiến vào Thế Giới Kinh Hoàng Mới!</p>
+        <button id="btn-key-modal-ok" class="cyber-btn success">✨ KHAI MỞ CỔNG MA MỚI</button>
       </div>
     </div>
 
     <!-- Game Over / Victory Modal -->
     <div id="end-modal" class="modal-overlay hidden">
       <div class="modal-card end-card">
-        <div id="end-status-icon" class="status-icon">🏆</div>
-        <h2 id="end-title" class="glow-title">CHIẾN THẮNG TUYỆT VỜI!</h2>
-        <p id="end-message" class="subtitle">Đã giải cứu khu vườn kẹo ngọt và bảo vệ an toàn cho các bé cưng!</p>
+        <div id="end-status-icon" class="status-icon">🎃</div>
+        <h2 id="end-title" class="glow-title">CHIẾN THẮNG HUY HOÀNG!</h2>
+        <p id="end-message" class="subtitle">Đã thanh tẩy nghĩa trang ma ám và bảo vệ bình yên cho các bé cưng phù thủy!</p>
         
         <div class="stats-summary">
           <div class="stat-item">
-            <span class="s-label">QUÁI SLIME ĐÃ THU PHỤC</span>
+            <span class="s-label">XÁC SỐNG & QUÁI VẬT ĐÃ DIỆT</span>
             <span class="s-val" id="stat-kills">0</span>
           </div>
           <div class="stat-item">
-            <span class="s-label">NĂNG LƯỢNG SAO THU ĐƯỢC</span>
+            <span class="s-label">LINH HỒN BÍ NGÔ THU THẬP</span>
             <span class="s-val" id="stat-energy">0</span>
           </div>
           <div class="stat-item">
-            <span class="s-label">KẸO KIM CƯƠNG NHẬN ĐƯỢC</span>
+            <span class="s-label">KẸO MA QUÁI THU ĐƯỢC</span>
             <span class="s-val highlight" id="stat-chips">+0 🍬</span>
           </div>
           <div class="stat-item">
-            <span class="s-label">ĐIỂM TỔNG KẾT</span>
+            <span class="s-label">ĐIỂM TRỪ TÀ</span>
             <span class="s-val highlight" id="stat-score">0</span>
           </div>
         </div>
 
         <div class="modal-buttons">
-          <button id="btn-replay" class="cyber-btn primary">🔄 CHƠI LẠI</button>
-          <button id="btn-end-techlab" class="cyber-btn warning">🧪 NÂNG CẤP KẸO</button>
-          <button id="btn-next-level" class="cyber-btn success">⏩ MÀN KẾ TIẾP</button>
-          <button id="btn-back-menu" class="cyber-btn secondary">🏠 BẢN ĐỒ MÀN CHƠI</button>
+          <button id="btn-replay" class="cyber-btn primary">🔄 THỬ THÁCH LẠI</button>
+          <button id="btn-end-techlab" class="cyber-btn warning">🧙‍♀️ VẠC PHÉP</button>
+          <button id="btn-next-level" class="cyber-btn success">⏩ CỬA ẢI KẾ TIẾP</button>
+          <button id="btn-back-menu" class="cyber-btn secondary">🗺️ BẢN ĐỒ MA ÁM</button>
         </div>
       </div>
     </div>
@@ -298,13 +307,13 @@
     <div id="codex-modal" class="modal-overlay hidden">
       <div class="modal-card codex-card">
         <div class="codex-header">
-          <h2>📖 TỪ ĐIỂN CÁC BÉ THÁP CƯNG & QUÁI SLIME</h2>
+          <h2>📜 CỔ THƯ MA PHÁP: BÉ THÁP PHÙ THỦY & QUÁI VẬT ĐÊM</h2>
           <button id="btn-close-codex" class="close-x">✕</button>
         </div>
         
         <div class="codex-tabs">
-          <button class="codex-tab active" data-tab="units">🤖 BÉ THÁP PHÒNG THỦ CUTE</button>
-          <button class="codex-tab" data-tab="viruses">👾 CÁC BÉ QUÁI SLIME DỄ THƯƠNG</button>
+          <button class="codex-tab active" data-tab="units">🎃 BÉ THÁP HALLOWEEN MA THUẬT</button>
+          <button class="codex-tab" data-tab="viruses">💀 BINH ĐOÀN XÁC SỐNG & QUÁI VẬT</button>
         </div>
 
         <div class="codex-content-body" id="codex-body">
@@ -317,26 +326,26 @@
     <div id="help-modal" class="modal-overlay hidden">
       <div class="modal-card help-card">
         <div class="codex-header">
-          <h2>🎮 HƯỚNG DẪN CÁCH CHƠI</h2>
+          <h2>🎮 BÍ KÍP TRỪ TÀ & SINH TỒN HALLOWEEN</h2>
           <button id="btn-close-help" class="close-x">✕</button>
         </div>
         <div class="help-content">
           <div class="help-step">
             <div class="help-num">1</div>
             <div class="help-text">
-              <strong>Mỗi Màn Thắng Mở Khóa 1 Tháp Công Nghệ Mới:</strong>
-              <p>Vượt qua mỗi màn chơi sẽ tặng ngay 1 Tháp mới với kiểu bắn (Plasma, Băng Cryo, Shotgun 3 Làn, Bắn Tỉa Xuyên Thấu, Pháo Cối, Tên Lửa Homing, Súng Phun Lửa, Hố Đen Lỗ Đen...).</p>
+              <strong>Thu hoạch Linh Hồn Bí Ngô & Đặt Tháp:</strong>
+              <p>Trồng <strong>Bí Ngô Linh Hồn (Jack-o'-Lantern)</strong> để sinh ra ngọn lửa ma thuật 🎃. Dùng linh hồn để triệu hồi các Bé Tháp Ma Thuật chống lại lũ quái vật gớm ghiếc!</p>
             </div>
           </div>
           <div class="help-step">
             <div class="help-num">2</div>
             <div class="help-text">
-              <strong>Chìa Khóa Mở Khóa Thế Giới (Keys):</strong>
-              <p>Hạ gục Boss Màn 10 nhận <strong>Chìa Khóa Đêm 🗝️</strong>; Hạ Boss Màn 20 nhận <strong>Chìa Khóa Mây 🔑</strong> để tiến vào 20 màn không gian trên mây!</p>
+              <strong>Chìa Khóa Mở Khóa Chiều Không Gian Hắc Ám:</strong>
+              <p>Tiêu diệt Đại Ma Vương ở Màn 10 nhận <strong>Chìa Khóa Lâu Đài 🗝️</strong>; Diệt Trùm Màn 20 nhận <strong>Chìa Khóa Địa Ngục 🔑</strong> để tiến vào các chiều không gian kinh hoàng!</p>
             </div>
           </div>
         </div>
-        <button id="btn-help-ok" class="cyber-btn primary center-btn">ĐÃ HIỂU - SẴN SÀNG CHIẾN ĐẤU</button>
+        <button id="btn-help-ok" class="cyber-btn primary center-btn">🎃 ĐÃ HIỂU - SẴN SÀNG CHIẾN ĐẤU</button>
       </div>
     </div>
 
@@ -344,65 +353,65 @@
     <div id="account-modal" class="modal-overlay hidden">
       <div class="modal-card account-card">
         <div class="codex-header">
-          <h2>🐱 TÀI KHOẢN NGƯỜI CHƠI & LƯU TIẾN TRÌNH</h2>
+          <h2>🎃 HỒ SƠ PHÙ THỦY & PHONG ẤN TIẾN TRÌNH</h2>
           <button id="btn-close-account" class="close-x">✕</button>
         </div>
 
         <!-- Account Current Status Card -->
         <div class="active-account-card">
-          <div class="account-avatar-large" id="acc-current-avatar">🐱</div>
+          <div class="account-avatar-large" id="acc-current-avatar">🎃</div>
           <div class="account-details">
-            <h3 id="acc-current-name">Bé Mèo Dễ Thương</h3>
-            <span class="acc-email-badge" id="acc-current-email">Chưa liên kết email</span>
+            <h3 id="acc-current-name">Bé Mèo Phù Thủy</h3>
+            <span class="acc-email-badge" id="acc-current-email">Chưa liên kết phong ấn email</span>
             <div class="acc-stats-pills">
-              <span class="acc-pill">🏆 Màn cao nhất: <strong id="acc-stat-level">Màn 1</strong></span>
-              <span class="acc-pill">🍬 Kẹo: <strong id="acc-stat-chips">150</strong></span>
-              <span class="acc-pill">🌱 Tháp: <strong id="acc-stat-units">2/40</strong></span>
+              <span class="acc-pill">🏆 Cửa ải cao nhất: <strong id="acc-stat-level">Màn 1</strong></span>
+              <span class="acc-pill">🍬 Kẹo ma: <strong id="acc-stat-chips">150</strong></span>
+              <span class="acc-pill">🎃 Bé Tháp: <strong id="acc-stat-units">2/40</strong></span>
             </div>
           </div>
         </div>
 
         <!-- Form: Đăng nhập email / Cập nhật tài khoản -->
         <div class="account-form-section">
-          <h4 class="section-title">💌 ĐĂNG NHẬP / ĐỔI TÀI KHOẢN EMAIL:</h4>
-          <p class="form-helper">Nhập email để tự động đồng bộ và lưu lại toàn bộ sao, kẹo, chìa khóa, màn chơi và bé cây đã mở khóa cho mọi lần chơi sau!</p>
+          <h4 class="section-title">🔮 PHONG ẤN / ĐỒNG BỘ TIẾN TRÌNH EMAIL:</h4>
+          <p class="form-helper">Nhập email để phong ấn và bảo lưu toàn bộ linh hồn, kẹo ma, chìa khóa, cửa ải và tháp ma thuật vĩnh viễn trên mọi thiết bị!</p>
           
           <div class="form-group">
-            <label for="acc-input-email">Địa chỉ Email của bạn:</label>
-            <input type="email" id="acc-input-email" class="cyber-input" placeholder="Ví dụ: beyeu@gmail.com..." autocomplete="email">
+            <label for="acc-input-email">Địa chỉ Email Phù Thủy:</label>
+            <input type="email" id="acc-input-email" class="cyber-input" placeholder="Ví dụ: phuthuy@halloween.com..." autocomplete="email">
           </div>
 
           <div class="form-group">
-            <label for="acc-input-name">Tên hiển thị / Biệt danh:</label>
-            <input type="text" id="acc-input-name" class="cyber-input" placeholder="Ví dụ: Bé Mèo Cuti..." maxlength="25">
+            <label for="acc-input-name">Danh Xưng Phù Thủy / Pháp Sư:</label>
+            <input type="text" id="acc-input-name" class="cyber-input" placeholder="Ví dụ: Bé Mèo Phù Thủy Cuti..." maxlength="25">
           </div>
 
           <div class="form-group">
-            <label>Chọn Avatar Biểu Tượng:</label>
+            <label>Chọn Linh Vật Phong Ấn:</label>
             <div class="avatar-picker-grid" id="avatar-picker-grid">
-              <button type="button" class="avatar-option active" data-avatar="🐱">🐱</button>
-              <button type="button" class="avatar-option" data-avatar="🐰">🐰</button>
-              <button type="button" class="avatar-option" data-avatar="🦊">🦊</button>
-              <button type="button" class="avatar-option" data-avatar="🌻">🌻</button>
-              <button type="button" class="avatar-option" data-avatar="🦄">🦄</button>
-              <button type="button" class="avatar-option" data-avatar="🐼">🐼</button>
-              <button type="button" class="avatar-option" data-avatar="🍓">🍓</button>
-              <button type="button" class="avatar-option" data-avatar="🐣">🐣</button>
-              <button type="button" class="avatar-option" data-avatar="🌸">🌸</button>
-              <button type="button" class="avatar-option" data-avatar="💖">💖</button>
+              <button type="button" class="avatar-option active" data-avatar="🎃">🎃</button>
+              <button type="button" class="avatar-option" data-avatar="👻">👻</button>
+              <button type="button" class="avatar-option" data-avatar="🦇">🦇</button>
+              <button type="button" class="avatar-option" data-avatar="💀">💀</button>
+              <button type="button" class="avatar-option" data-avatar="🧙‍♀️">🧙‍♀️</button>
+              <button type="button" class="avatar-option" data-avatar="🐱">🐱</button>
+              <button type="button" class="avatar-option" data-avatar="🕷️">🕷️</button>
+              <button type="button" class="avatar-option" data-avatar="🧛‍♂️">🧛‍♂️</button>
+              <button type="button" class="avatar-option" data-avatar="🧟">🧟</button>
+              <button type="button" class="avatar-option" data-avatar="🍬">🍬</button>
             </div>
           </div>
 
           <div class="account-actions">
             <button id="btn-save-login-account" class="cyber-btn primary">
-              💖 ĐĂNG NHẬP & LƯU TIẾN TRÌNH
+              🎃 PHONG ẤN & LƯU TIẾN TRÌNH
             </button>
           </div>
         </div>
 
         <!-- Saved Accounts on this Device -->
         <div class="saved-accounts-section" id="saved-accounts-section">
-          <h4 class="section-title">👥 TÀI KHOẢN ĐÃ LƯU TRÊN MÁY NÀY:</h4>
+          <h4 class="section-title">👥 DANH SÁCH PHÙ THỦY ĐÃ LƯU TRÊN THIẾT BỊ:</h4>
           <div class="saved-accounts-list" id="saved-accounts-list">
             <!-- Rendered dynamically -->
           </div>
@@ -410,11 +419,11 @@
 
         <!-- Cloud Save / Export / Import -->
         <div class="cloud-backup-section">
-          <h4 class="section-title">☁️ SAO LƯU & CHUYỂN TIẾN TRÌNH GIỮA CÁC MÁY:</h4>
+          <h4 class="section-title">☁️ SAO LƯU PHONG ẤN MA THUẬT:</h4>
           <div class="backup-buttons">
-            <button id="btn-export-save" class="cyber-btn secondary small">📤 Sao chép mã sao lưu</button>
+            <button id="btn-export-save" class="cyber-btn secondary small">📤 Sao chép mã phong ấn</button>
             <button id="btn-import-save" class="cyber-btn secondary small">📥 Nhập mã khôi phục</button>
-            <button id="btn-logout-account" class="cyber-btn danger small">🚪 Đăng xuất tài khoản</button>
+            <button id="btn-logout-account" class="cyber-btn danger small">🚪 Giải trừ phong ấn</button>
           </div>
         </div>
 
@@ -423,6 +432,7 @@
   </div>
 
   <!-- Audio & Script files -->
+  <script src="assets.js"></script>
   <script src="audio.js"></script>
   <script src="entities.js"></script>
   <script src="game.js"></script>
